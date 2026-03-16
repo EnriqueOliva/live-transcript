@@ -1,0 +1,134 @@
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.io.transcript_writer:36 | Transcript files opened in C:\workshops\workshopLiveTranscribeII\data\sessions\2026-03-16_00-33-57
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.audio.devices:32 | Default loopback: [20] Speakers (TOPPING USB DAC) [Loopback] (48000 Hz, 2 ch)
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.audio.accumulator:41 | Accumulator: chunk=30.0s, overlap=5.0s, step=25.0s
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.audio.capture:41 | Starting capture: device=20 rate=48000 ch=2 buf=512
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.audio.accumulator:58 | Accumulator thread started
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.stt.worker:46 | Transcription worker started
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.bootstrap:95 | Session started in C:\workshops\workshopLiveTranscribeII\data\sessions\2026-03-16_00-33-57
+2026-03-16 00:33:57 | INFO     | whisper_transcriber.stt.whisper_engine:38 | Loading model 'large-v3' (compute=float16, device=cuda)
+2026-03-16 00:33:57 | DEBUG    | httpcore.connection:47 | close.started
+2026-03-16 00:33:57 | DEBUG    | httpcore.connection:47 | close.complete
+2026-03-16 00:33:57 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=None socket_options=None
+2026-03-16 00:33:57 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000018421B27650>
+2026-03-16 00:33:57 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000018421A9F5D0> server_hostname='huggingface.co' timeout=None
+2026-03-16 00:33:57 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000018421B26B10>
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'GET']>
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'GET']>
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Date', b'Mon, 16 Mar 2026 03:34:06 GMT'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'content-encoding', b'gzip'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-69b77a2e-46a461cc0b940c8f232c6d3a;2f44ec10-88f6-459c-a1a8-bd5a499409a6'), (b'RateLimit', b'"api";r=498;t=90'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'vary', b'accept-encoding'), (b'ETag', b'W/"11dd-XZeRMiBJKDWYVmSmCJoGDHcQiX8"'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 9f2ecd5d45add34b640266420c275544.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'EZE50-P7'), (b'X-Amz-Cf-Id', b'wZTy2KuTwHuLFCUr_Hg_7zz1YPbu3QbhCDhCZg-6142S-DNZBqQ-hg==')])
+2026-03-16 00:33:57 | INFO     | httpx:1025 | HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-large-v3/revision/main "HTTP/1.1 200 OK"
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'GET']>
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | response_closed.started
+2026-03-16 00:33:57 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2026-03-16 00:34:01 | INFO     | whisper_transcriber.stt.whisper_engine:134 | GPU: NVIDIA GeForce RTX 4070 | VRAM: 0.0/12.0 GB
+2026-03-16 00:34:01 | INFO     | whisper_transcriber.stt.whisper_engine:57 | Model loaded: large-v3 (float16)
+2026-03-16 00:34:27 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 0 ready: 30.0s audio at offset 0.0s
+2026-03-16 00:34:27 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:34:27 | INFO     | faster_whisper:895 | VAD filter removed 00:09.928 of audio
+2026-03-16 00:34:27 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:09.176 -> 00:11.528], [00:11.832 -> 00:15.592], [00:15.864 -> 00:21.288], [00:21.464 -> 00:30.000]
+2026-03-16 00:34:27 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:34:30 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 0: 2.70s inference, 4 segments, speech: 20.1/30.0s
+2026-03-16 00:34:52 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 1 ready: 30.0s audio at offset 25.0s
+2026-03-16 00:34:52 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:34:52 | INFO     | faster_whisper:895 | VAD filter removed 00:01.512 of audio
+2026-03-16 00:34:52 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:00.632 -> 00:05.608], [00:05.848 -> 00:12.008], [00:12.376 -> 00:24.776], [00:25.048 -> 00:30.000]
+2026-03-16 00:34:52 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:34:56 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 1: 3.75s inference, 8 segments, speech: 28.5/30.0s
+2026-03-16 00:34:56 | DEBUG    | whisper_transcriber.stt.chunk_merger:53 | Filtered repetition: 'Y si Estados Unidos toma esta isla, Irán'
+2026-03-16 00:35:17 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 2 ready: 30.0s audio at offset 50.0s
+2026-03-16 00:35:17 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:35:17 | INFO     | faster_whisper:895 | VAD filter removed 00:02.104 of audio
+2026-03-16 00:35:17 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:00.056 -> 00:08.552], [00:09.176 -> 00:14.280], [00:14.616 -> 00:17.448], [00:18.168 -> 00:19.144], [00:19.512 -> 00:30.000]
+2026-03-16 00:35:17 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:35:21 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 2: 4.22s inference, 10 segments, speech: 27.9/30.0s
+2026-03-16 00:35:21 | DEBUG    | whisper_transcriber.stt.chunk_merger:53 | Filtered repetition: 'Y esto es algo que el nuevo Ayatollah Kh'
+2026-03-16 00:35:42 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 3 ready: 30.0s audio at offset 75.0s
+2026-03-16 00:35:42 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:35:42 | INFO     | faster_whisper:895 | VAD filter removed 00:00.952 of audio
+2026-03-16 00:35:42 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:00.000 -> 00:05.512], [00:05.656 -> 00:15.752], [00:15.896 -> 00:25.256], [00:25.400 -> 00:29.480]
+2026-03-16 00:35:42 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:35:46 | DEBUG    | faster_whisper:1183 | Processing segment at 00:27.980
+2026-03-16 00:35:46 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 3: 4.23s inference, 7 segments, speech: 29.0/30.0s
+2026-03-16 00:35:46 | DEBUG    | whisper_transcriber.stt.chunk_merger:53 | Filtered repetition: 'en este caso, Estados Unidos se vería ob'
+2026-03-16 00:36:07 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 4 ready: 30.0s audio at offset 100.0s
+2026-03-16 00:36:07 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:36:07 | INFO     | faster_whisper:895 | VAD filter removed 00:03.736 of audio
+2026-03-16 00:36:07 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:00.408 -> 00:08.648], [00:08.824 -> 00:16.072], [00:17.592 -> 00:18.280], [00:18.456 -> 00:19.176], [00:20.632 -> 00:30.000]
+2026-03-16 00:36:07 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:36:11 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 4: 3.75s inference, 9 segments, speech: 26.3/30.0s
+2026-03-16 00:36:32 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 5 ready: 30.0s audio at offset 125.0s
+2026-03-16 00:36:32 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:36:32 | INFO     | faster_whisper:895 | VAD filter removed 00:24.808 of audio
+2026-03-16 00:36:32 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:00.000 -> 00:05.192]
+2026-03-16 00:36:32 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:36:33 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 5: 1.24s inference, 2 segments, speech: 5.2/30.0s
+2026-03-16 00:36:33 | DEBUG    | whisper_transcriber.stt.chunk_merger:53 | Filtered repetition: 'la que pone límite a las operaciones mil'
+2026-03-16 00:36:33 | DEBUG    | whisper_transcriber.stt.chunk_merger:53 | Filtered repetition: 'En realidad, esta ley es un problema par'
+2026-03-16 00:36:57 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 6 ready: 30.0s audio at offset 150.0s
+2026-03-16 00:36:57 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:36:57 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:36:57 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:36:57 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 6: 0.06s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:37:22 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 7 ready: 30.0s audio at offset 175.0s
+2026-03-16 00:37:22 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:37:22 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:37:22 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:37:22 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 7: 0.08s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:37:47 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 8 ready: 30.0s audio at offset 200.0s
+2026-03-16 00:37:47 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:37:47 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:37:47 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:37:47 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 8: 0.08s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:38:12 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 9 ready: 30.0s audio at offset 225.0s
+2026-03-16 00:38:12 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:38:12 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:38:12 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:38:12 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 9: 0.06s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:38:37 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 10 ready: 30.0s audio at offset 250.0s
+2026-03-16 00:38:37 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:38:37 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:38:37 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:38:37 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 10: 0.08s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:39:02 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 11 ready: 30.0s audio at offset 275.0s
+2026-03-16 00:39:02 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:39:02 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:39:02 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:39:02 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 11: 0.05s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:39:27 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 12 ready: 30.0s audio at offset 300.0s
+2026-03-16 00:39:27 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:39:27 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:39:27 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:39:27 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 12: 0.06s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:39:52 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 13 ready: 30.0s audio at offset 325.0s
+2026-03-16 00:39:52 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:39:52 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:39:52 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:39:52 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 13: 0.08s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:40:17 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 14 ready: 30.0s audio at offset 350.0s
+2026-03-16 00:40:17 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:40:17 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:40:17 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:40:17 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 14: 0.08s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:40:42 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 15 ready: 30.0s audio at offset 375.0s
+2026-03-16 00:40:42 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:40:42 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:40:42 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:40:42 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 15: 0.03s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:41:07 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 16 ready: 30.0s audio at offset 400.0s
+2026-03-16 00:41:07 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:41:07 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:41:07 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:41:07 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 16: 0.06s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:41:32 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 17 ready: 30.0s audio at offset 425.0s
+2026-03-16 00:41:32 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:41:32 | INFO     | faster_whisper:895 | VAD filter removed 00:30.000 of audio
+2026-03-16 00:41:32 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: 
+2026-03-16 00:41:32 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 17: 0.08s inference, 0 segments, speech: 0.0/30.0s
+2026-03-16 00:41:36 | INFO     | whisper_transcriber.bootstrap:102 | Stopping session...
+2026-03-16 00:41:36 | INFO     | whisper_transcriber.audio.capture:68 | Audio stream closed
+2026-03-16 00:41:36 | INFO     | whisper_transcriber.audio.capture:73 | PortAudio terminated
+2026-03-16 00:41:36 | INFO     | whisper_transcriber.stt.worker:117 | Transcription worker stopped
+2026-03-16 00:41:37 | INFO     | whisper_transcriber.audio.accumulator:101 | Accumulator thread stopped

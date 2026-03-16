@@ -320,3 +320,122 @@
 [00:16:59 -> 00:17:00] Que esas son dos cosas
 [00:17:00 -> 00:17:02] Después teníamos el selector
 [00:17:02 -> 00:17:05] Que hoy en día sigue siendo
+[00:17:07 -> 00:17:08] de nuevo hay usuarios,
+[00:17:09 -> 00:17:12] y ahí el problema que estamos teniendo también,
+[00:17:12 -> 00:17:15] para que tengan en cuenta Santi y Gastón,
+[00:17:15 -> 00:17:18] es que un usuario tiene 80 compañías
+[00:17:18 -> 00:17:21] y quiere seleccionar todas rápido,
+[00:17:21 -> 00:17:23] como que hay veces que no están seleccionadas.
+[00:17:24 -> 00:17:26] O sea, tendría que haber un check como para decir,
+[00:17:26 -> 00:17:27] aplicar a todas.
+[00:17:28 -> 00:17:30] Supongamos que un usuario tiene 100 compañías,
+[00:17:32 -> 00:17:33] y también
+[00:17:33 -> 00:17:36] la B2 o B3 de estos
+[00:17:36 -> 00:17:38] sería poder hacer permisos
+[00:17:38 -> 00:17:40] personalizados, que eso
+[00:17:40 -> 00:17:42] yo te lo había dicho que es un desafío
+[00:17:42 -> 00:17:45] para mí ahí lo que habría que hacer en ese caso
+[00:17:45 -> 00:17:47] de permisos personalizados es que vos das
+[00:17:47 -> 00:17:49] permisos y después vos podés entrar
+[00:17:49 -> 00:17:51] por compañía y editar los permisos
+[00:17:51 -> 00:17:53] por compañía, ¿está?
+[00:17:54 -> 00:17:56] Es como que si vos querés permisos personalizados
+[00:17:57 -> 00:17:59] si vos querés aplicar permisos para todos,
+[00:17:59 -> 00:18:00] vos tenés el panel actual.
+[00:18:01 -> 00:18:03] Pero si vos querés permisos personalizados,
+[00:18:03 -> 00:18:04] es como que te lista las compañías
+[00:18:04 -> 00:18:06] y vos vas y editás por compañía.
+[00:18:07 -> 00:18:09] Y es como una acción aparte.
+[00:18:10 -> 00:18:11] Me parece que eso es lo más sano.
+[00:18:13 -> 00:18:16] Pero tengamos en cuenta que si un...
+[00:18:16 -> 00:18:18] Empecemos a tener flujos grandes, ¿no?
+[00:18:19 -> 00:18:20] Tengamos en cuenta...
+[00:18:20 -> 00:18:22] creo que tenemos que ir pensando en que un usuario
+[00:18:22 -> 00:18:23] tiene 500 compañías
+[00:18:23 -> 00:18:27] o sea, eso es lo que quiero que
+[00:18:27 -> 00:18:29] vos y Gastón
+[00:18:29 -> 00:18:32] tengan en cuenta, un usuario tiene
+[00:18:32 -> 00:18:34] 500, un usuario tiene mil
+[00:18:34 -> 00:18:35] compañías y tiene que administrar team
+[00:18:35 -> 00:18:39] tenemos que empezar a ser paginado
+[00:18:39 -> 00:18:41] y tenemos que cambiar la cabeza de los clubes
+[00:18:41 -> 00:18:43] entonces yo ya no le puedo dar acceso
+[00:18:43 -> 00:18:45] así, yo creo que el cambio que vamos
+[00:18:47 -> 00:18:48] yo no te puedo dar acceso
+[00:18:48 -> 00:18:50] a las mil de una.
+[00:18:54 -> 00:18:56] Es tipo, bueno, te agrego como teammate
+[00:18:56 -> 00:18:58] y después paso dos, selecciona
+[00:18:58 -> 00:19:00] las compañías y te doy permisos.
+[00:19:00 -> 00:19:02] ¿Entendés? Eso creo que
+[00:19:02 -> 00:19:05] lo que vamos a tener es que meter un pienso
+[00:19:05 -> 00:19:08] ahí. Porque si, también
+[00:19:08 -> 00:19:09] una cosa que yo pienso ahí,
+[00:19:10 -> 00:19:12] Nahuel y Martina estuvieron bastante metidos en el tema.
+[00:19:13 -> 00:19:18] Imagínense que yo le voy a aplicar el mismo permiso para todas
+[00:19:18 -> 00:19:20] y el usuario tiene 500 compañías.
+[00:19:21 -> 00:19:23] Tengo que crear todas las relaciones para todas las compañías.
+[00:19:24 -> 00:19:27] O sea, se vuelve una query súper gigante.
+[00:19:27 -> 00:19:28] Estamos de acuerdo, ¿no?
+[00:19:28 -> 00:19:29] Creo que estamos todos alineados con eso.
+[00:19:30 -> 00:19:33] Entonces, vamos a tener que meterle un pienso ahí.
+[00:19:34 -> 00:19:41] De nuevo, ya estuve viendo varios usuarios que tienen 80. De nuevo, ya estuve viendo varios usuarios que tienen 80, 70 y algo compañías,
+[00:19:41 -> 00:19:44] y como viene la mano, va a ser algo creciente.
+[00:19:45 -> 00:19:47] Entonces tenemos que atacar.
+[00:19:49 -> 00:19:54] Yo creo que el módulo de TeamMate tenemos que pensarlo en qué pasa si un usuario
+[00:19:54 -> 00:19:57] quiere ceder sus compañías y tiene 500 compañías.
+[00:19:58 -> 00:20:00] Si nosotros no paginamos esas cosas, explotan.
+[00:20:01 -> 00:20:03] tenemos que cambiar ahí el flujo.
+[00:20:04 -> 00:20:06] Santi Gastón, Nahuel, Martina.
+[00:20:06 -> 00:20:07] Pensar, bueno.
+[00:20:08 -> 00:20:10] Sin duda ahí es necesario el buscador,
+[00:20:10 -> 00:20:12] ¿no? Claro, o sea,
+[00:20:12 -> 00:20:15] yo creo que vamos a tener que
+[00:20:15 -> 00:20:17] sacar la acción o reformular
+[00:20:17 -> 00:20:18] la acción del mismo permiso
+[00:20:18 -> 00:20:22] para todas las compañías. Vamos a tener que
+[00:20:22 -> 00:20:23] pensarlo porque, de nuevo,
+[00:20:24 -> 00:20:27] como funciona hoy en día, yo no puedo
+[00:20:30 -> 00:20:32] Capaz que vamos a tener que meterle un pienso ahí,
+[00:20:33 -> 00:20:36] pero me parece que más allá de que la funcionalidad puede estar,
+[00:20:36 -> 00:20:38] capaz que podemos agregarle una flag al teammate,
+[00:20:38 -> 00:20:43] Martín o Nahuel, podemos pensarlo de tener como una tabla
+[00:20:43 -> 00:20:48] o algún chequeo de decir, bueno, estos permisos son para todas las compañías,
+[00:20:50 -> 00:20:59] ¿Cómo hacemos lógicamente? Porque, de nuevo, si tenés 500 compañías, yo no te puedo, en una request, yo no puedo agarrar y crearle los 500 permisos.
+[00:20:59 -> 00:21:09] Estamos todos alineados con eso, ¿no? O sea, es como un problema gigante crear la relación de compañías, es decir, los product para 500 compañías.
+[00:21:10 -> 00:21:14] Entonces, tenemos que cambiar el enfoque. Y con esto no estamos adelantando el problema que se viene.
+[00:21:15 -> 00:21:16] No creo que sucedan 500 compañías,
+[00:21:17 -> 00:21:19] pero sí es eminente que va a haber usuarios con 200.
+[00:21:21 -> 00:21:24] Y eso puede suceder en los próximos 2, 3 meses.
+[00:21:25 -> 00:21:28] Entonces, ahí, nada, tenemos que evitar este problema
+[00:21:28 -> 00:21:31] porque nosotros a ese usuario que tiene 200 compañías
+[00:21:31 -> 00:21:33] no podemos trancarle el sitio, estamos de acuerdo.
+[00:21:35 -> 00:21:37] A ese usuario tenemos que tratarlo re bien.
+[00:21:38 -> 00:21:42] Entonces, nada, ahí Santi, ese es un poco el desafío
+[00:21:48 -> 00:21:55] Bien, creo que me faltaba solo en agua, voy a cambiar. Adelante.
+[00:21:56 -> 00:22:03] Bien, yo por mi parte estaba finalizando ahora con los temas que te mencionaba de la PR, este 361 creo que era.
+[00:22:05 -> 00:22:10] Lo último que le hice a esa PR es hacer genérico el modal de comprobantes.
+[00:22:12 -> 00:22:16] Así ya subo y solicito que te asignen con FILE, así pasas a revisión.
+[00:22:17 -> 00:22:25] Y ahí ya paso a revisar, como les había mencionado, la PR de los samples que precisaba Jonah para las acciones.
+[00:22:27 -> 00:22:30] Así ya la liquidamos y después paso a revisar la PR de Jonah.
+[00:22:34 -> 00:22:36] Bien de bien. Y ahí
+[00:22:36 -> 00:22:39] Nau, Martina, dejé las prioridades.
+[00:22:39 -> 00:22:41] La idea es ir revisando
+[00:22:41 -> 00:22:42] a medida que se pueda y que vos, Nau, puedas
+[00:22:42 -> 00:22:44] hacer las iteraciones con Copilot.
+[00:22:44 -> 00:22:47] Ahí le podés también. Yo sé que Martina
+[00:22:47 -> 00:22:49] está medio al palo y yo puedo estar complicado.
+[00:22:49 -> 00:22:51] Entonces podés tirar el channel de Develop
+[00:22:51 -> 00:22:53] para pedir una mano con eso.
+[00:22:53 -> 00:22:55] Para no ponerte a hacer la solicitud ahora
+[00:22:55 -> 00:22:57] ahora de github pro
+[00:22:57 -> 00:22:59] después lo podes chequear
+[00:22:59 -> 00:23:02] lo mismo cualquiera
+[00:23:02 -> 00:23:03] si llega a tener este problema
+[00:23:03 -> 00:23:05] puede hacerlo, por ahí está bueno
+[00:23:05 -> 00:23:07] sacar la solicitud, bien de bien
+[00:23:07 -> 00:23:10] bueno, no sé si alguien tiene algún
+[00:23:10 -> 00:23:16] postgram, bueno, nada, vamos arriba
+[00:23:16 -> 00:23:17] si podés Martina, quédate 5
+[00:23:17 -> 00:23:19] al resto, nos vemos
+[00:23:19 -> 00:23:22] quedo atento, nos vemos
+[00:23:22 -> 00:23:22] chau

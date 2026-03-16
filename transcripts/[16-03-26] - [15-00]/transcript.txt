@@ -320,3 +320,122 @@ Como teammates y de ver los permisos
 Que esas son dos cosas
 Después teníamos el selector
 Que hoy en día sigue siendo
+de nuevo hay usuarios,
+y ahí el problema que estamos teniendo también,
+para que tengan en cuenta Santi y Gastón,
+es que un usuario tiene 80 compañías
+y quiere seleccionar todas rápido,
+como que hay veces que no están seleccionadas.
+O sea, tendría que haber un check como para decir,
+aplicar a todas.
+Supongamos que un usuario tiene 100 compañías,
+y también
+la B2 o B3 de estos
+sería poder hacer permisos
+personalizados, que eso
+yo te lo había dicho que es un desafío
+para mí ahí lo que habría que hacer en ese caso
+de permisos personalizados es que vos das
+permisos y después vos podés entrar
+por compañía y editar los permisos
+por compañía, ¿está?
+Es como que si vos querés permisos personalizados
+si vos querés aplicar permisos para todos,
+vos tenés el panel actual.
+Pero si vos querés permisos personalizados,
+es como que te lista las compañías
+y vos vas y editás por compañía.
+Y es como una acción aparte.
+Me parece que eso es lo más sano.
+Pero tengamos en cuenta que si un...
+Empecemos a tener flujos grandes, ¿no?
+Tengamos en cuenta...
+creo que tenemos que ir pensando en que un usuario
+tiene 500 compañías
+o sea, eso es lo que quiero que
+vos y Gastón
+tengan en cuenta, un usuario tiene
+500, un usuario tiene mil
+compañías y tiene que administrar team
+tenemos que empezar a ser paginado
+y tenemos que cambiar la cabeza de los clubes
+entonces yo ya no le puedo dar acceso
+así, yo creo que el cambio que vamos
+yo no te puedo dar acceso
+a las mil de una.
+Es tipo, bueno, te agrego como teammate
+y después paso dos, selecciona
+las compañías y te doy permisos.
+¿Entendés? Eso creo que
+lo que vamos a tener es que meter un pienso
+ahí. Porque si, también
+una cosa que yo pienso ahí,
+Nahuel y Martina estuvieron bastante metidos en el tema.
+Imagínense que yo le voy a aplicar el mismo permiso para todas
+y el usuario tiene 500 compañías.
+Tengo que crear todas las relaciones para todas las compañías.
+O sea, se vuelve una query súper gigante.
+Estamos de acuerdo, ¿no?
+Creo que estamos todos alineados con eso.
+Entonces, vamos a tener que meterle un pienso ahí.
+De nuevo, ya estuve viendo varios usuarios que tienen 80. De nuevo, ya estuve viendo varios usuarios que tienen 80, 70 y algo compañías,
+y como viene la mano, va a ser algo creciente.
+Entonces tenemos que atacar.
+Yo creo que el módulo de TeamMate tenemos que pensarlo en qué pasa si un usuario
+quiere ceder sus compañías y tiene 500 compañías.
+Si nosotros no paginamos esas cosas, explotan.
+tenemos que cambiar ahí el flujo.
+Santi Gastón, Nahuel, Martina.
+Pensar, bueno.
+Sin duda ahí es necesario el buscador,
+¿no? Claro, o sea,
+yo creo que vamos a tener que
+sacar la acción o reformular
+la acción del mismo permiso
+para todas las compañías. Vamos a tener que
+pensarlo porque, de nuevo,
+como funciona hoy en día, yo no puedo
+Capaz que vamos a tener que meterle un pienso ahí,
+pero me parece que más allá de que la funcionalidad puede estar,
+capaz que podemos agregarle una flag al teammate,
+Martín o Nahuel, podemos pensarlo de tener como una tabla
+o algún chequeo de decir, bueno, estos permisos son para todas las compañías,
+¿Cómo hacemos lógicamente? Porque, de nuevo, si tenés 500 compañías, yo no te puedo, en una request, yo no puedo agarrar y crearle los 500 permisos.
+Estamos todos alineados con eso, ¿no? O sea, es como un problema gigante crear la relación de compañías, es decir, los product para 500 compañías.
+Entonces, tenemos que cambiar el enfoque. Y con esto no estamos adelantando el problema que se viene.
+No creo que sucedan 500 compañías,
+pero sí es eminente que va a haber usuarios con 200.
+Y eso puede suceder en los próximos 2, 3 meses.
+Entonces, ahí, nada, tenemos que evitar este problema
+porque nosotros a ese usuario que tiene 200 compañías
+no podemos trancarle el sitio, estamos de acuerdo.
+A ese usuario tenemos que tratarlo re bien.
+Entonces, nada, ahí Santi, ese es un poco el desafío
+Bien, creo que me faltaba solo en agua, voy a cambiar. Adelante.
+Bien, yo por mi parte estaba finalizando ahora con los temas que te mencionaba de la PR, este 361 creo que era.
+Lo último que le hice a esa PR es hacer genérico el modal de comprobantes.
+Así ya subo y solicito que te asignen con FILE, así pasas a revisión.
+Y ahí ya paso a revisar, como les había mencionado, la PR de los samples que precisaba Jonah para las acciones.
+Así ya la liquidamos y después paso a revisar la PR de Jonah.
+Bien de bien. Y ahí
+Nau, Martina, dejé las prioridades.
+La idea es ir revisando
+a medida que se pueda y que vos, Nau, puedas
+hacer las iteraciones con Copilot.
+Ahí le podés también. Yo sé que Martina
+está medio al palo y yo puedo estar complicado.
+Entonces podés tirar el channel de Develop
+para pedir una mano con eso.
+Para no ponerte a hacer la solicitud ahora
+ahora de github pro
+después lo podes chequear
+lo mismo cualquiera
+si llega a tener este problema
+puede hacerlo, por ahí está bueno
+sacar la solicitud, bien de bien
+bueno, no sé si alguien tiene algún
+postgram, bueno, nada, vamos arriba
+si podés Martina, quédate 5
+al resto, nos vemos
+quedo atento, nos vemos
+chau

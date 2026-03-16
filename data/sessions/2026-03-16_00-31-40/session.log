@@ -1,0 +1,49 @@
+2026-03-16 00:31:40 | INFO     | whisper_transcriber.io.transcript_writer:36 | Transcript files opened in C:\workshops\workshopLiveTranscribeII\data\sessions\2026-03-16_00-31-40
+2026-03-16 00:31:40 | INFO     | whisper_transcriber.audio.devices:32 | Default loopback: [20] Speakers (TOPPING USB DAC) [Loopback] (48000 Hz, 2 ch)
+2026-03-16 00:31:40 | INFO     | whisper_transcriber.audio.accumulator:41 | Accumulator: chunk=30.0s, overlap=5.0s, step=25.0s
+2026-03-16 00:31:40 | INFO     | whisper_transcriber.audio.capture:41 | Starting capture: device=20 rate=48000 ch=2 buf=512
+2026-03-16 00:31:40 | INFO     | whisper_transcriber.audio.accumulator:58 | Accumulator thread started
+2026-03-16 00:31:40 | INFO     | whisper_transcriber.stt.worker:46 | Transcription worker started
+2026-03-16 00:31:40 | INFO     | whisper_transcriber.bootstrap:95 | Session started in C:\workshops\workshopLiveTranscribeII\data\sessions\2026-03-16_00-31-40
+2026-03-16 00:31:42 | INFO     | whisper_transcriber.stt.whisper_engine:38 | Loading model 'large-v3' (compute=float16, device=cuda)
+2026-03-16 00:31:43 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=None socket_options=None
+2026-03-16 00:31:43 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001842197F860>
+2026-03-16 00:31:43 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000018421A9F5D0> server_hostname='huggingface.co' timeout=None
+2026-03-16 00:31:43 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000018420C18440>
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'GET']>
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'GET']>
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Date', b'Mon, 16 Mar 2026 03:31:52 GMT'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'content-encoding', b'gzip'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-69b779a8-04ed716225e19f273c3c6dcf;71378442-2bf3-4e88-9846-d0ec049e7a46'), (b'RateLimit', b'"api";r=499;t=224'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'vary', b'accept-encoding'), (b'ETag', b'W/"11dd-XZeRMiBJKDWYVmSmCJoGDHcQiX8"'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 9575f28a844c796168273849ffe9ad16.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'EZE50-P7'), (b'X-Amz-Cf-Id', b'rmjbrzJ9oKHZ7unE8tMIOk31uiAbF8-d0TGYGCHB_W0kOhzD9dJZuw==')])
+2026-03-16 00:31:43 | INFO     | httpx:1025 | HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-large-v3/revision/main "HTTP/1.1 200 OK"
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'GET']>
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | response_closed.started
+2026-03-16 00:31:43 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2026-03-16 00:31:47 | INFO     | whisper_transcriber.stt.whisper_engine:134 | GPU: NVIDIA GeForce RTX 4070 | VRAM: 0.0/12.0 GB
+2026-03-16 00:31:47 | INFO     | whisper_transcriber.stt.whisper_engine:57 | Model loaded: large-v3 (float16)
+2026-03-16 00:32:10 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 0 ready: 30.0s audio at offset 0.0s
+2026-03-16 00:32:10 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:32:10 | INFO     | faster_whisper:895 | VAD filter removed 00:17.464 of audio
+2026-03-16 00:32:10 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:14.104 -> 00:17.384], [00:17.656 -> 00:19.496], [00:19.800 -> 00:20.488], [00:22.744 -> 00:24.040], [00:24.568 -> 00:30.000]
+2026-03-16 00:32:10 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:32:12 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 0: 2.03s inference, 3 segments, speech: 12.5/30.0s
+2026-03-16 00:32:35 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 1 ready: 30.0s audio at offset 25.0s
+2026-03-16 00:32:35 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:32:35 | INFO     | faster_whisper:895 | VAD filter removed 00:09.112 of audio
+2026-03-16 00:32:35 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:00.000 -> 00:09.000], [00:11.256 -> 00:23.144]
+2026-03-16 00:32:35 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:32:37 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 1: 2.47s inference, 4 segments, speech: 20.9/30.0s
+2026-03-16 00:32:37 | DEBUG    | whisper_transcriber.stt.chunk_merger:53 | Filtered repetition: 'have been cool to sleep like that too hu'
+2026-03-16 00:33:00 | INFO     | whisper_transcriber.audio.accumulator:83 | Chunk 2 ready: 30.0s audio at offset 50.0s
+2026-03-16 00:33:00 | INFO     | faster_whisper:881 | Processing audio with duration 00:30.000
+2026-03-16 00:33:00 | INFO     | faster_whisper:895 | VAD filter removed 00:12.072 of audio
+2026-03-16 00:33:00 | DEBUG    | faster_whisper:901 | VAD filter kept the following audio segments: [00:08.824 -> 00:13.928], [00:14.648 -> 00:18.856], [00:20.216 -> 00:21.768], [00:22.936 -> 00:30.000]
+2026-03-16 00:33:00 | DEBUG    | faster_whisper:1183 | Processing segment at 00:00.000
+2026-03-16 00:33:02 | INFO     | whisper_transcriber.stt.worker:90 | Chunk 2: 2.49s inference, 4 segments, speech: 17.9/30.0s
+2026-03-16 00:33:09 | INFO     | whisper_transcriber.bootstrap:102 | Stopping session...
+2026-03-16 00:33:09 | INFO     | whisper_transcriber.audio.capture:68 | Audio stream closed
+2026-03-16 00:33:09 | INFO     | whisper_transcriber.audio.capture:73 | PortAudio terminated
+2026-03-16 00:33:09 | INFO     | whisper_transcriber.audio.accumulator:101 | Accumulator thread stopped
+2026-03-16 00:33:09 | INFO     | whisper_transcriber.stt.worker:117 | Transcription worker stopped
