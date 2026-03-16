@@ -1,45 +1,50 @@
 from __future__ import annotations
 
+import os
 import sys
 
 
 def main() -> None:
     print("=" * 60)
-    print("GPU Verification")
+    print("System Verification")
     print("=" * 60)
 
-    try:
-        import torch
-
-        print(f"PyTorch version:  {torch.__version__}")
-        print(f"CUDA available:   {torch.cuda.is_available()}")
-        if torch.cuda.is_available():
-            print(f"CUDA version:     {torch.version.cuda}")
-            print(f"cuDNN version:    {torch.backends.cudnn.version()}")
-            print(f"Device count:     {torch.cuda.device_count()}")
-            print(f"Device name:      {torch.cuda.get_device_name(0)}")
-            print(f"Compute cap:      {torch.cuda.get_device_capability(0)}")
-            mem = torch.cuda.get_device_properties(0).total_memory
-            print(f"VRAM:             {mem / (1024**3):.1f} GB")
-        else:
-            print("WARNING: CUDA not available")
-            print(f"PyTorch CUDA:     {torch.version.cuda}")
-    except ImportError:
-        print("ERROR: PyTorch not installed. Run: uv sync")
-        sys.exit(1)
+    print(f"Python:           {sys.version.split()[0]}")
+    print(f"Platform:         {sys.platform}")
+    print(f"CPU cores:        {os.cpu_count()}")
 
     print()
 
     try:
         import ctranslate2
 
-        print(f"CTranslate2 ver:  {ctranslate2.__version__}")
-        supported = ctranslate2.get_supported_compute_types("cuda")
-        print(f"CT2 CUDA types:   {supported}")
+        print(f"CTranslate2:      {ctranslate2.__version__}")
+        cpu_types = ctranslate2.get_supported_compute_types("cpu")
+        print(f"CPU types:        {cpu_types}")
+
+        gpu_count = ctranslate2.get_cuda_device_count()
+        print(f"CUDA GPU count:   {gpu_count}")
+
+        if gpu_count > 0:
+            cuda_types = ctranslate2.get_supported_compute_types("cuda")
+            print(f"CUDA types:       {cuda_types}")
     except ImportError:
-        print("NOTE: CTranslate2 not directly importable (via faster-whisper)")
-    except Exception as e:
-        print(f"CT2 CUDA check:   Failed ({e})")
+        print("CTranslate2:      NOT INSTALLED")
+
+    print()
+
+    try:
+        import torch
+
+        print(f"PyTorch:          {torch.__version__}")
+        print(f"CUDA available:   {torch.cuda.is_available()}")
+        if torch.cuda.is_available():
+            print(f"CUDA version:     {torch.version.cuda}")
+            print(f"Device:           {torch.cuda.get_device_name(0)}")
+            mem = torch.cuda.get_device_properties(0).total_memory
+            print(f"VRAM:             {mem / (1024**3):.1f} GB")
+    except ImportError:
+        print("PyTorch:          not installed (OK for CPU mode)")
 
     print()
 
@@ -48,7 +53,17 @@ def main() -> None:
 
         print("faster-whisper:   OK")
     except ImportError:
-        print("ERROR: faster-whisper not installed. Run: uv sync")
+        print("faster-whisper:   NOT INSTALLED")
+
+    print()
+
+    if ctranslate2.get_cuda_device_count() > 0:
+        print("Mode:             GPU (CUDA)")
+        print("Recommended:      turbo model, float16")
+    else:
+        print("Mode:             CPU")
+        print("Recommended:      turbo model, int8")
+        print("Tip:              Run 'uv sync --group cuda' to enable GPU acceleration")
 
     print("=" * 60)
 

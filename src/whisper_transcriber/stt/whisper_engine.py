@@ -5,14 +5,23 @@ import logging
 from pathlib import Path
 from typing import Any
 
+import ctranslate2
 import numpy as np
 
 logger = logging.getLogger(__name__)
 
-MODEL_ALIASES: dict[str, str] = {
-    "turbo": "mobiuslabsgmbh/faster-whisper-large-v3-turbo",
-}
 LOCAL_SUBDIR = "turbo-local"
+
+
+def detect_device() -> tuple[str, str]:
+    try:
+        if ctranslate2.get_cuda_device_count() > 0:
+            logger.info("CUDA detected, using GPU")
+            return "cuda", "float16"
+    except Exception:
+        pass
+    logger.info("No CUDA GPU found, using CPU")
+    return "cpu", "int8"
 
 
 class WhisperEngine:
@@ -27,11 +36,18 @@ class WhisperEngine:
     ) -> None:
         self._model_size = model_size
         self._language = language
-        self._compute_type = compute_type
         self._model_dir = Path(model_dir)
         self._initial_prompt = initial_prompt or None
         self._hotwords = hotwords or None
         self._model: Any = None
+
+        if compute_type == "auto":
+            self._device, self._compute_type = detect_device()
+        else:
+            self._device = "cuda" if ctranslate2.get_cuda_device_count() > 0 else "cpu"
+            self._compute_type = compute_type
+            if self._device == "cpu" and compute_type in ("float16", "int8_float16"):
+                self._compute_type = "int8"
 
     @property
     def is_loaded(self) -> bool:
@@ -49,59 +65,56 @@ class WhisperEngine:
         from faster_whisper import WhisperModel
 
         model_path = self._resolve_model_path()
-        logger.info("Loading model '%s' (compute=%s, device=cuda)", model_path, self._compute_type)
+        logger.info(
+            "Loading model '%s' (compute=%s, device=%s)",
+            model_path, self._compute_type, self._device,
+        )
         try:
             self._model = WhisperModel(
                 model_path,
-                device="cuda",
+                device=self._device,
                 compute_type=self._compute_type,
                 download_root=str(self._model_dir),
             )
-        except RuntimeError as exc:
-            if "out of memory" in str(exc).lower():
-                logger.warning("CUDA OOM, trying int8_float16")
-                self._fallback_load(model_path)
-            else:
-                raise
-        except OSError as exc:
-            if "1314" in str(exc) or "privilege" in str(exc).lower():
-                logger.warning("Symlink error, trying pre-downloaded model or fallback")
-                self._fallback_load(model_path)
-            else:
-                raise
-        self._log_gpu_info()
-        logger.info("Model loaded: %s (%s)", self._model_size, self._compute_type)
+        except Exception:
+            logger.warning("Primary load failed, trying fallback")
+            self._fallback_load(model_path)
+        self._log_device_info()
+        logger.info("Model loaded: %s (%s on %s)", self._model_size, self._compute_type, self._device)
 
     def _fallback_load(self, original_path: str) -> None:
         from faster_whisper import WhisperModel
 
         gc.collect()
-        self._cuda_empty_cache()
+        self._try_empty_cache()
+
+        fallback_type = "int8" if self._device == "cpu" else "int8_float16"
         try:
             self._model = WhisperModel(
-                original_path, device="cuda", compute_type="int8_float16",
+                original_path, device=self._device, compute_type=fallback_type,
                 download_root=str(self._model_dir),
             )
-            self._compute_type = "int8_float16"
+            self._compute_type = fallback_type
             return
         except Exception:
             pass
+
         gc.collect()
-        self._cuda_empty_cache()
-        logger.warning("Falling back to large-v3")
+        self._try_empty_cache()
+        logger.warning("Falling back to CPU with int8")
+        self._device = "cpu"
+        self._compute_type = "int8"
         self._model = WhisperModel(
-            "large-v3", device="cuda", compute_type="float16",
+            original_path, device="cpu", compute_type="int8",
             download_root=str(self._model_dir),
         )
-        self._model_size = "large-v3"
-        self._compute_type = "float16"
 
     def unload_model(self) -> None:
         if self._model is not None:
             del self._model
             self._model = None
             gc.collect()
-            self._cuda_empty_cache()
+            self._try_empty_cache()
             logger.info("Model unloaded")
 
     def transcribe(self, audio: np.ndarray) -> tuple[list, Any]:
@@ -129,7 +142,7 @@ class WhisperEngine:
         return segments, info
 
     @staticmethod
-    def _cuda_empty_cache() -> None:
+    def _try_empty_cache() -> None:
         try:
             import torch
             if torch.cuda.is_available():
@@ -137,11 +150,16 @@ class WhisperEngine:
         except ImportError:
             pass
 
-    def _log_gpu_info(self) -> None:
-        try:
-            import torch
-            if torch.cuda.is_available():
-                total = torch.cuda.get_device_properties(0).total_memory / 1024**3
-                logger.info("GPU: %s | VRAM: %.1f GB", torch.cuda.get_device_name(0), total)
-        except ImportError:
-            pass
+    def _log_device_info(self) -> None:
+        if self._device == "cuda":
+            try:
+                import torch
+                if torch.cuda.is_available():
+                    total = torch.cuda.get_device_properties(0).total_memory / 1024**3
+                    logger.info("GPU: %s | VRAM: %.1f GB", torch.cuda.get_device_name(0), total)
+            except ImportError:
+                logger.info("CUDA device active (torch not installed for detailed info)")
+        else:
+            import os
+            cores = os.cpu_count() or 0
+            logger.info("CPU mode: %d cores available", cores)
