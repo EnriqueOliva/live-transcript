@@ -7,13 +7,10 @@ requires-python = ">=3.12,<3.13"
 license = "MIT"
 dependencies = [
     "faster-whisper>=1.2.1,<2",
-    "torch>=2.9.1,<3",
     "PySide6>=6.8,<7",
     "PyAudioWPatch>=0.2.12,<1",
     "numpy>=1.26,<3",
     "scipy>=1.12,<2",
-    "nvidia-cublas-cu12>=12.8",
-    "nvidia-cudnn-cu12>=9.8",
 ]
 
 [dependency-groups]
@@ -22,6 +19,11 @@ dev = [
     "pytest-timeout>=2.3",
     "ruff>=0.11",
     "mypy>=1.15",
+]
+cuda = [
+    "torch>=2.9.1,<3",
+    "nvidia-cublas-cu12>=12.8",
+    "nvidia-cudnn-cu12>=9.8",
 ]
 
 [build-system]

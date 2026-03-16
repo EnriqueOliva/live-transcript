@@ -919,15 +919,17 @@ source = { editable = "." }
 dependencies = [
     { name = "faster-whisper" },
     { name = "numpy" },
-    { name = "nvidia-cublas-cu12" },
-    { name = "nvidia-cudnn-cu12" },
     { name = "pyaudiowpatch" },
     { name = "pyside6" },
     { name = "scipy" },
-    { name = "torch" },
 ]
 
 [package.dev-dependencies]
+cuda = [
+    { name = "nvidia-cublas-cu12" },
+    { name = "nvidia-cudnn-cu12" },
+    { name = "torch" },
+]
 dev = [
     { name = "mypy" },
     { name = "pytest" },
@@ -939,15 +941,17 @@ dev = [
 requires-dist = [
     { name = "faster-whisper", specifier = ">=1.2.1,<2" },
     { name = "numpy", specifier = ">=1.26,<3" },
-    { name = "nvidia-cublas-cu12", specifier = ">=12.8" },
-    { name = "nvidia-cudnn-cu12", specifier = ">=9.8" },
     { name = "pyaudiowpatch", specifier = ">=0.2.12,<1" },
     { name = "pyside6", specifier = ">=6.8,<7" },
     { name = "scipy", specifier = ">=1.12,<2" },
-    { name = "torch", specifier = ">=2.9.1,<3", index = "https://download.pytorch.org/whl/cu128" },
 ]
 
 [package.metadata.requires-dev]
+cuda = [
+    { name = "nvidia-cublas-cu12", specifier = ">=12.8" },
+    { name = "nvidia-cudnn-cu12", specifier = ">=9.8" },
+    { name = "torch", specifier = ">=2.9.1,<3", index = "https://download.pytorch.org/whl/cu128" },
+]
 dev = [
     { name = "mypy", specifier = ">=1.15" },
     { name = "pytest", specifier = ">=8.0" },

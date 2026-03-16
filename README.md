@@ -1,6 +1,6 @@
 # Live Transcript
 
-Real-time system audio transcription for Windows using [faster-whisper](https://github.com/SYSTRAN/faster-whisper) with GPU acceleration.
+Real-time system audio transcription for Windows using [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
 
 Captures WASAPI loopback audio (what your speakers play) and produces a live transcript. Built for transcribing Zoom lectures, meetings, podcasts, or any audio playing on your system.
 
@@ -10,7 +10,8 @@ Captures WASAPI loopback audio (what your speakers play) and produces a live tra
 
 ## Features
 
-- Real-time transcription with Whisper turbo model (~0.1s inference per 30s chunk on RTX 4070)
+- Real-time transcription with Whisper turbo model
+- Works on **any Windows machine** (CPU or NVIDIA GPU)
 - WASAPI loopback capture (system audio, no virtual cables needed)
 - Optional microphone recording with audio mixing
 - Audio visualizer (EQ frequency bars)
@@ -18,13 +19,13 @@ Captures WASAPI loopback audio (what your speakers play) and produces a live tra
 - Session-based output with plain text and timestamped transcripts
 - Hold-back boundary merging (zero word loss at chunk boundaries)
 - Dark mode PySide6 GUI
-- 7-layer hallucination prevention (VAD, no-speech filter, compression ratio, etc.)
 
 ## Requirements
 
 - Windows 11
-- NVIDIA GPU with CUDA support (tested on RTX 4070 12GB)
-- NVIDIA driver 535+
+- Python 3.12 (managed by uv)
+
+**For GPU acceleration (optional):** NVIDIA GPU with CUDA support and driver 535+
 
 ## Setup
 
@@ -36,18 +37,25 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 
 ### 2. Install dependencies
 
+**CPU only** (works on any machine):
 ```bash
 uv python install 3.12
 uv sync
 ```
 
-### 3. Verify GPU
+**With NVIDIA GPU acceleration** (faster inference):
+```bash
+uv python install 3.12
+uv sync --group cuda
+```
+
+### 3. Verify setup
 
 ```bash
 uv run python scripts/verify_gpu.py
 ```
 
-The turbo model (~1.5 GB) will download automatically on first run.
+The Whisper model (~1.5 GB) downloads automatically on first run.
 
 ## Run
 
@@ -60,6 +68,16 @@ uv run python -m whisper_transcriber
 3. Click **Start** to begin transcription
 4. Click **Open Folder** to view transcripts
 5. Click **Stop** when done
+
+### Performance
+
+| Hardware | Model | Inference per 30s chunk |
+|----------|-------|------------------------|
+| RTX 4070 (CUDA) | turbo, float16 | ~0.1s |
+| i5-12th gen (CPU) | turbo, int8 | ~3-8s |
+| i5-12th gen (CPU) | small, int8 | ~1-2s |
+
+The app auto-detects GPU availability. On CPU, it uses `int8` quantization for maximum speed.
 
 ## Output
 
@@ -81,28 +99,21 @@ logs/[DD-MM-YY] - [HH-MM]/
 ```
 WASAPI Loopback ─┐
                   ├─► Accumulator ─► Transcription Worker ─► GUI + File
-Microphone (opt) ─┘   (30s chunks    (faster-whisper        (PySide6 +
-                       5s overlap)     turbo model)           transcript writer)
+Microphone (opt) ─┘   (30s chunks    (faster-whisper         (PySide6 +
+                       5s overlap)     turbo model)            transcript writer)
 ```
-
-Key design decisions:
-- **SimpleQueue** for PortAudio callback thread safety
-- **resample_poly(1,3)** for exact 48kHz→16kHz conversion
-- **Hold-back + text merge** at chunk boundaries prevents word loss
-- **Safe zone** filtering defers overlap-region segments to the next chunk
-- Worker writes directly to TranscriptWriter (no Qt signal race condition)
 
 ## CUDA Troubleshooting
 
-If CTranslate2 reports missing CUDA libraries:
+If CTranslate2 reports missing CUDA libraries after `uv sync --group cuda`:
 
-**Option A** (default): The `nvidia-cublas-cu12` and `nvidia-cudnn-cu12` pip packages are included. If CTranslate2 can't find them, add to your PATH:
+**Option A**: The `nvidia-cublas-cu12` and `nvidia-cudnn-cu12` pip packages are included. Add to your PATH:
 ```
 .venv/Lib/site-packages/nvidia/cublas/bin
 .venv/Lib/site-packages/nvidia/cudnn/bin
 ```
 
-**Option B** (fallback): Download CUDA12_v3 from [Purfview/whisper-standalone-win](https://github.com/Purfview/whisper-standalone-win/releases/tag/libs). Extract DLLs to the project root.
+**Option B**: Download CUDA12_v3 from [Purfview/whisper-standalone-win](https://github.com/Purfview/whisper-standalone-win/releases/tag/libs). Extract DLLs to the project root.
 
 ## Development
 
@@ -115,7 +126,7 @@ uv run pytest
 
 ## Legal Note
 
-Ensure compliance with your institution's recording policies and the terms of service of any conferencing software before capturing audio. This tool captures system audio output; inform all participants as required by local regulations.
+Ensure compliance with your institution's recording policies and the terms of service of any conferencing software before capturing audio.
 
 ## License
 

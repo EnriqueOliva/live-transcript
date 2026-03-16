@@ -24,7 +24,7 @@ MAX_CHUNK: float = 60.0
 class AppSettings:
     model_size: str = "turbo"
     language: str = "en"
-    compute_type: str = "float16"
+    compute_type: str = "auto"
     chunk_duration: float = 30.0
     overlap_seconds: float = 5.0
     audio_device: int | None = None
