@@ -1,0 +1,322 @@
+permisos que te cedieron como team
+yo soy un teammate de alguien
+no solo me puedo eliminar
+sino que puedo asimismo
+ver esos permisos
+eso es importante
+esas tres cosas para mi son
+eso y enviar el estado
+de cuenta bancario
+Martina cuando puedas revisarlo
+y ya lo aprobamos porque
+yo había entendido que ya se había enviado
+ahora en la reunión de liderazgo me lo pidieron
+igual todavía no lo vamos
+a atacar pero ya lo tenemos
+esas tres cositas ahí Santi
+necesito que le den
+prioridad ahí Santi Gatón, mañana voy a
+tener nuevas tareas
+para ustedes dos, pero necesito
+que le enfoquen a eso para ya
+poder
+picharlo y aprobarlo
+Porque tenemos esta
+semanita, mientras que sacamos triangulación
+y otras cosas, para hacer esos ajustes que
+no solo impactan a nivel de diseño,
+sino que es una mejora
+a nivel de performance que tenemos que sacar ya.
+Entonces, porque
+después no vamos a tener tiempo para sacarlo.
+Entonces, hay que
+meterlo. Así que
+un poquito eso de mi lado.
+Enrique, ahí se emergió la de los correos
+Si viste que nos pasó un video, si podés dedicarle, tomar prioridad a eso frente a lo de triangulación, a ver qué es lo que le está pasando.
+O sabés qué, si lo de triangulación te lleva una hora o dos, terminá lo de triangulación y después mirás ese... Porque así tenemos la PR.
+Otra cosa con respecto a lo de triangulación y con respecto a todas las PRs,
+siempre hagan una, dos, tres iteraciones con Copilot.
+Ahí tengan en cuenta que si tienen encuesta de estudiante,
+pueden solicitar GitFab Pro para tener Copilot.
+ahí yo justo lo hablábamos con Nahue
+por si alguno no lo tiene
+y de última, si
+alguien sea necesita solicitar la review
+tenemos el canal de developer
+lo único que hace es enviar la PR
+con un arroba y si alguien
+se anima a hacer la revisión de Copilot
+y lo único que tiene que hacer
+alguien que tenga acceso es darle
+click para que lo revise, ¿bien?
+así que eso nomás
+¿Algo más, Kike? No te disculpo, pero bueno, te lo acepto. dale vamos a reír
+¿está todo?
+ya quedaron subidas las 4 PR
+de las 8 hectáreas de los test de CRUD
+vi si no afectaban
+los cambios nuevos estos que estaba
+comentando a los test
+y no afectan
+de draft y subirlas a intang, que básicamente lo único que me falta es eso, acomodarlas,
+pujearlas, acomodarlas, responder los comentarios a Copilot y después de eso si me sobra tiempo
+Bien. Ahí los test de compañía, usted en cuenta que tienen ahora los casos de teammates para agregar.
+No sé si ya lo estaba viendo.
+Y después es lo mismo que el otro día.
+Al final del día, si hay PR del lado de Martina o mía, te pido que las pases ahí.
+No sé cuál es el estatus, pero no importa.
+Al final del día,
+pasanos ahí a ver si hay alguna
+que falta probar de mi lado de Martina.
+Más que nada las que agregan
+funcionalidad, pero son como las que más
+me preocupan, que quiero que se mergeen.
+Dale, entiendo ahí.
+Martina.
+Bueno, de mi lado estuve revisando bastantes PRs, entre esas quedaron ya las que hiciste de Refactor en el Site Drop y Backoffice, que tal vez impacta todos los archivos básicamente, seguramente en la web cuando mergés, dicen que no se condeveló, como es que tenés conflictos, pero tal vez la idea es ya probar todos esos cambios también de paso, que no haya nada raro.
+Después sigo con la parte de triangulación, con la parte de compra en realidad.
+Estoy con detalles, así ya puedo pasar el historial después.
+Un comentario respecto a lo del estado de cuenta que estaba viendo.
+No sé dónde se sacó el ejemplo, o si se usó el ejemplo que tenemos hoy en día,
+Digo porque si no entendí mal y si queremos mantener el que tenemos hoy...
+O sea, el PDF está generado a mano, digamos, entre comillas, en el site,
+y va a ser bastante difícil llegar a ese formato porque tiene...
+Primero que nada tiene colores, el original no tiene color.
+No, vamos a tener que generar un network. Es como medio inminente.
+O sea, porque es algo más profesional
+Entonces está
+No queda de otra
+Hay dos versiones, uno con color
+Y uno con color, yo pasé las dos versiones
+No, o sea, ahí
+Pasemos Santi la versión
+Pasemos las dos versiones y que decían
+la realidad
+Martina es que no es algo que hay que sacar
+apurado, sino que hay que sacar bien
+entonces
+si es otra cosa, yo porque no sabía si vamos a hacerlo
+igual que lo hicimos
+que ya está en el site, pero tal, si se va a hacer
+con el Worker
+le podemos dar más customización
+y tristemente
+calculo que va a ser en el Worker
+y nada
+vamos a tener que ver ahí
+cómo encararlo, pero va a tener que ser
+en el web, y lo que vamos a hacer es
+tengo que meterle un pienso
+ahí, cómo encararlo
+por ejemplo lo que hace Santander
+o otros bancos
+tiene pregenerado los estados de cuenta
+para los últimos
+estados de cuenta, lo tiene pregenerado
+Pero tipo, como que ya te previene ese caso.
+O además, hay bancos que lo que hacen
+es generan todo esto de cuenta.
+Y te muestran, porque te los envían por mail.
+Entonces, yo ahí lo que...
+O sea, creo que en nuestro caso
+lo más sano es generarlo
+y avisarle cuando esté.
+O sea, que no lo puedas descargar en el momento.
+pero también es que lo vas solicitando
+que se te vaya generando
+hay que ver como lo encaramos
+porque es algo delicado
+pero muy probable
+podemos intentar atacarlo en front
+y si no se puede
+se va a tener que atacar con el worker
+y bueno
+alguna especie de trabajo ahí
+vamos a tener que meterle un pienso
+igual no es problema para más adelante
+¿Ni en algo más?
+No, mira.
+¿Cómo venimos con esto?
+¿Qué estaría faltando?
+¿Qué nos estaría bloqueando de la parte del site?
+No, eso es lo que dijo, o sea, ha sido avanzando el tema que son bastantes flujos con bastantes casos de prueba.
+Pero está, o sea, la parte de ventos ya está funcionando, la de compra estoy testeando en los últimos detalles
+y el historial en realidad es más visual que otra cosa, así que es bastante parecido a compra.
+También mi idea es ahí, fui creando componentes genéricos para justamente no tener que duplicar. duplicar código, así que está
+básicamente estoy
+gesteando y también ayudando a que el código
+quede limpio. Bien, avisarnos
+cualquier cosa, cualquier bloqueo que vamos a tener
+ahí. Gastón.
+Hola, buenas. Bueno, yo estuve
+optimizando los
+PDF de accounting
+pesaban como 200 megas, pues
+tenían varios elementos que hacían que pesara
+mucho, entonces los estuve editando y ya los dejé
+subidos en el mismo hilo
+si después los pueden ver, a ver si están bien o
+quieren que los siga optimizando. ¿Cuánto quedaron más o menos?
+Más o menos de 10 megas cada uno.
+¿Te animás a hacer una iteracióncita más?
+Sí, sí, sí, sí. Lo sigo optimizando.
+Bueno, después tuve...
+Mi pregunta es...
+Bueno, está, hagamos una iteración más y es como lo que...
+Vale.
+Después tuve la reunión por el Roundup de marzo.
+me estuvieron mandando,
+diciendo más o menos qué era lo que querían mostrar en la presentación.
+Está como es el miércoles que viene,
+igual lo voy a atacar más adelante,
+después de librarme de las tareas prioritarias de este lado.
+después también estuve
+reunión con Matías
+por unas tarjetas que me pidió para
+Bolivia, unas tarjetas personales
+después
+estuve, bueno, revisando
+unas cosas que
+mandó Santiago
+de estado de cuenta y los mails
+también una PR de Fernando
+y bueno, y sigo con los análisis
+de las landings, que me había
+pausado un poco todo eso
+pero nada, ya estoy liquidando
+eso. Ahí, dos cosas
+estaba mirando las optimizaciones
+sabía bueno que pese en Kbyte
+que ni llegue al mega, en el PDF
+Ah, sí?
+O sea, a ver si podemos usar
+alguna plataforma o algo para optimizarlo
+muy feo, si no
+Gastón, ahí lo que vamos a hacer es sacar
+fondos, hacer la presentación
+más sencilla, recordemos que es una
+guía y tenemos que subirla mucho
+a lenguajes y para growth y para papá
+entonces
+intentemos que sea lo más
+me gustaría que no llegue al mes
+o sea, si colpere, ponerte un objetivo
+sé que quedó muy linda
+pero
+pensemos que esta guía
+Máximo un medio. O sea, podremos llegar a pelear dos, pero intentemos que sean kbites, ¿sí?
+Después con lo otro, yo le pasé pila de tareas a Santi. Nada, o sea, pausemos la review del sitio, o sea, si llegas a... tiempo, pausemos la review del sitio y vean
+cómo atacar todas esas cosas. Pues tiene
+el módulo de TeamMate, múltiples compañías
+y el selector. Y de
+TeamMate después hay varias cosas que hay que
+trabajar. Mi objetivo es
+que salga, como dije, ¿no? Lo del selector
+de múltiples compañías, la visualización
+de compañías paginadas, el selector
+de compañías paginadas y así mismo
+Yo me parece que eso es clave.
+Son pictures que son accesibles y podemos sacar y realmente nos impactan.
+Ahí también la parte de teammate, cuando seleccionamos la compañía, tenemos que hacerlo paginado.
+Tenemos, yo les, no sé si lo había comentado, pero tenemos clientes con muchas compañías
+de eso vamos a tener clientes que nos ingresan mucho dinero y nos mueven mucho dinero que van
+a empezar a tener una mala experiencia en la plataforma y no me basta con subir los recursos
+de WS, entonces tenemos que atacarlo eso esta semanita bien eso nomás, ojo con la tarea
+el Gastón
+que tenemos ahí
+medio a tu
+doing progress
+pues parece
+poquitas
+y luego ya estamos
+a mitad del sprint
+pero eso anda
+bichándolo
+ahí si te falta
+alguna tarea
+Gastón
+avísame ahí
+y trabajamos
+lo otro que hay
+teniendo en cuenta
+es que
+de marketing
+habría que
+trabajar en las cosas
+ahí que nos pidieron
+que hoy ya nos
+estuvieron reclamando
+nada
+eso
+a tener en cuenta
+esas cosas de marketing también
+no va a venir bien
+o sea ahí
+recuerden que siempre, querán o no
+ustedes pueden atacar las cosas
+de marketing pero siempre y cuando
+sigan moviéndose las cosas de desarrollo
+lo mismo
+con la ronda y todas esas cosas
+siempre
+la idea es que siempre se organizen para atacar
+pero siempre que estén tocando
+lo que puedan de desarrollo.
+O sea, si las cosas de marketing,
+lo que siempre está bueno cuando les piden esos requisitos
+es que vean hasta cuándo tienen para poder
+presentarlos, cosas que se puedan
+organizar bien en el tiempo.
+Bien. Santi.
+Bien. Yo me creé estas ideas
+para dos de las tres cosas que pediste,
+ya las comencé a trabajar,
+que fue lo de,
+¿cómo se llama?
+Lo de las múltiples compañías
+y lo de la modal
+del selector de cuenta.
+Me falta crear
+para la de teammates.
+Y bueno, el viernes también estuve trabajando
+en una hoja bienvenida
+que pidió Carlos, que nos juntamos ahí con Gastón.
+Estuve trabajando en ajustes varios que vimos contigo y con Martina
+para los flujos de peso boliviano, tanto el video del site,
+y eso lo dejamos todo ya ajustado y revisado.
+Y bueno, estuve trabajando un rato también en los ajustes esos que habíamos hablado
+de cuando las cuentas se habían pausado y se habían bloqueado,
+detuve eso, ni bien me pasaste
+las tareas nuevas y me comencé
+ahí con los
+con el paginado y esas cosas
+bien, si, esas tareas probablemente
+metamos a
+tenemos que meter a
+Nahuel y a Jonathan
+a que nos den una mano con eso antes
+ellos estuvieron trabajando
+en eso, no en las múltiples
+compañías, pero si el intelectual y esas cosas
+así que la idea es poder hacer
+yo por ahora el enfoque que haría sería
+yo continúo trabajando en estas dos cosas
+si liquido
+rápido, paso a lo de teammates
+o si
+Gastón liquida rápido, eso lo de marketing
+que para mí sería algo que estaría bueno sacar
+esta semana, se pasa
+a lo de
+teammates, que sería la siguiente
+Tengamos en cuenta que lo de teammates
+Había tres cositas
+Había varias
+Teníamos
+Primero
+Lo de eliminarse
+Como teammates y de ver los permisos
+Que esas son dos cosas
+Después teníamos el selector
+Que hoy en día sigue siendo

@@ -1,0 +1,322 @@
+[00:00:00 -> 00:00:04] permisos que te cedieron como team
+[00:00:04 -> 00:00:07] yo soy un teammate de alguien
+[00:00:07 -> 00:00:09] no solo me puedo eliminar
+[00:00:09 -> 00:00:11] sino que puedo asimismo
+[00:00:11 -> 00:00:15] ver esos permisos
+[00:00:15 -> 00:00:16] eso es importante
+[00:00:16 -> 00:00:19] esas tres cosas para mi son
+[00:00:19 -> 00:00:21] eso y enviar el estado
+[00:00:21 -> 00:00:22] de cuenta bancario
+[00:00:22 -> 00:00:25] Martina cuando puedas revisarlo
+[00:00:25 -> 00:00:26] y ya lo aprobamos porque
+[00:00:26 -> 00:00:28] yo había entendido que ya se había enviado
+[00:00:28 -> 00:00:31] ahora en la reunión de liderazgo me lo pidieron
+[00:00:31 -> 00:00:34] igual todavía no lo vamos
+[00:00:34 -> 00:00:35] a atacar pero ya lo tenemos
+[00:00:35 -> 00:00:37] esas tres cositas ahí Santi
+[00:00:37 -> 00:00:40] necesito que le den
+[00:00:40 -> 00:00:42] prioridad ahí Santi Gatón, mañana voy a
+[00:00:42 -> 00:00:44] tener nuevas tareas
+[00:00:44 -> 00:00:46] para ustedes dos, pero necesito
+[00:00:46 -> 00:00:48] que le enfoquen a eso para ya
+[00:00:48 -> 00:00:49] poder
+[00:00:49 -> 00:00:52] picharlo y aprobarlo
+[00:00:53 -> 00:00:54] Porque tenemos esta
+[00:00:54 -> 00:00:56] semanita, mientras que sacamos triangulación
+[00:00:56 -> 00:00:58] y otras cosas, para hacer esos ajustes que
+[00:00:58 -> 00:01:00] no solo impactan a nivel de diseño,
+[00:01:01 -> 00:01:02] sino que es una mejora
+[00:01:02 -> 00:01:04] a nivel de performance que tenemos que sacar ya.
+[00:01:05 -> 00:01:07] Entonces, porque
+[00:01:07 -> 00:01:09] después no vamos a tener tiempo para sacarlo.
+[00:01:10 -> 00:01:11] Entonces, hay que
+[00:01:11 -> 00:01:13] meterlo. Así que
+[00:01:13 -> 00:01:15] un poquito eso de mi lado.
+[00:01:15 -> 00:01:20] Enrique, ahí se emergió la de los correos
+[00:01:50 -> 00:02:02] Si viste que nos pasó un video, si podés dedicarle, tomar prioridad a eso frente a lo de triangulación, a ver qué es lo que le está pasando.
+[00:02:04 -> 00:02:12] O sabés qué, si lo de triangulación te lleva una hora o dos, terminá lo de triangulación y después mirás ese... Porque así tenemos la PR.
+[00:02:13 -> 00:02:18] Otra cosa con respecto a lo de triangulación y con respecto a todas las PRs,
+[00:02:19 -> 00:02:22] siempre hagan una, dos, tres iteraciones con Copilot.
+[00:02:22 -> 00:02:25] Ahí tengan en cuenta que si tienen encuesta de estudiante,
+[00:02:26 -> 00:02:29] pueden solicitar GitFab Pro para tener Copilot.
+[00:02:30 -> 00:02:32] ahí yo justo lo hablábamos con Nahue
+[00:02:32 -> 00:02:34] por si alguno no lo tiene
+[00:02:34 -> 00:02:35] y de última, si
+[00:02:35 -> 00:02:38] alguien sea necesita solicitar la review
+[00:02:38 -> 00:02:40] tenemos el canal de developer
+[00:02:40 -> 00:02:42] lo único que hace es enviar la PR
+[00:02:42 -> 00:02:44] con un arroba y si alguien
+[00:02:44 -> 00:02:46] se anima a hacer la revisión de Copilot
+[00:02:46 -> 00:02:49] y lo único que tiene que hacer
+[00:02:49 -> 00:02:50] alguien que tenga acceso es darle
+[00:02:50 -> 00:02:52] click para que lo revise, ¿bien?
+[00:02:53 -> 00:02:55] así que eso nomás
+[00:02:55 -> 00:03:26] ¿Algo más, Kike? No te disculpo, pero bueno, te lo acepto. dale vamos a reír
+[00:03:26 -> 00:03:27] ¿está todo?
+[00:03:31 -> 00:03:34] ya quedaron subidas las 4 PR
+[00:03:34 -> 00:03:37] de las 8 hectáreas de los test de CRUD
+[00:03:37 -> 00:03:41] vi si no afectaban
+[00:03:41 -> 00:03:42] los cambios nuevos estos que estaba
+[00:03:42 -> 00:03:44] comentando a los test
+[00:03:44 -> 00:03:46] y no afectan
+[00:03:55 -> 00:04:02] de draft y subirlas a intang, que básicamente lo único que me falta es eso, acomodarlas,
+[00:04:02 -> 00:04:13] pujearlas, acomodarlas, responder los comentarios a Copilot y después de eso si me sobra tiempo
+[00:04:16 -> 00:04:24] Bien. Ahí los test de compañía, usted en cuenta que tienen ahora los casos de teammates para agregar.
+[00:04:24 -> 00:04:25] No sé si ya lo estaba viendo.
+[00:04:26 -> 00:04:28] Y después es lo mismo que el otro día.
+[00:04:28 -> 00:04:34] Al final del día, si hay PR del lado de Martina o mía, te pido que las pases ahí.
+[00:04:35 -> 00:04:37] No sé cuál es el estatus, pero no importa.
+[00:04:38 -> 00:04:40] Al final del día,
+[00:04:40 -> 00:04:42] pasanos ahí a ver si hay alguna
+[00:04:42 -> 00:04:44] que falta probar de mi lado de Martina.
+[00:04:44 -> 00:04:45] Más que nada las que agregan
+[00:04:45 -> 00:04:48] funcionalidad, pero son como las que más
+[00:04:48 -> 00:04:49] me preocupan, que quiero que se mergeen.
+[00:04:50 -> 00:04:51] Dale, entiendo ahí.
+[00:04:54 -> 00:04:55] Martina.
+[00:05:00 -> 00:05:27] Bueno, de mi lado estuve revisando bastantes PRs, entre esas quedaron ya las que hiciste de Refactor en el Site Drop y Backoffice, que tal vez impacta todos los archivos básicamente, seguramente en la web cuando mergés, dicen que no se condeveló, como es que tenés conflictos, pero tal vez la idea es ya probar todos esos cambios también de paso, que no haya nada raro.
+[00:05:30 -> 00:05:34] Después sigo con la parte de triangulación, con la parte de compra en realidad.
+[00:05:36 -> 00:05:39] Estoy con detalles, así ya puedo pasar el historial después.
+[00:05:42 -> 00:05:46] Un comentario respecto a lo del estado de cuenta que estaba viendo.
+[00:05:47 -> 00:05:51] No sé dónde se sacó el ejemplo, o si se usó el ejemplo que tenemos hoy en día,
+[00:05:54 -> 00:06:00] Digo porque si no entendí mal y si queremos mantener el que tenemos hoy...
+[00:06:00 -> 00:06:06] O sea, el PDF está generado a mano, digamos, entre comillas, en el site,
+[00:06:06 -> 00:06:10] y va a ser bastante difícil llegar a ese formato porque tiene...
+[00:06:10 -> 00:06:13] Primero que nada tiene colores, el original no tiene color.
+[00:06:13 -> 00:06:18] No, vamos a tener que generar un network. Es como medio inminente.
+[00:06:20 -> 00:06:23] O sea, porque es algo más profesional
+[00:06:23 -> 00:06:24] Entonces está
+[00:06:24 -> 00:06:27] No queda de otra
+[00:06:27 -> 00:06:31] Hay dos versiones, uno con color
+[00:06:31 -> 00:06:33] Y uno con color, yo pasé las dos versiones
+[00:06:33 -> 00:06:34] No, o sea, ahí
+[00:06:34 -> 00:06:38] Pasemos Santi la versión
+[00:06:38 -> 00:06:40] Pasemos las dos versiones y que decían
+[00:06:40 -> 00:06:42] la realidad
+[00:06:42 -> 00:06:44] Martina es que no es algo que hay que sacar
+[00:06:44 -> 00:06:46] apurado, sino que hay que sacar bien
+[00:06:46 -> 00:06:47] entonces
+[00:06:47 -> 00:06:51] si es otra cosa, yo porque no sabía si vamos a hacerlo
+[00:06:51 -> 00:06:52] igual que lo hicimos
+[00:06:52 -> 00:06:55] que ya está en el site, pero tal, si se va a hacer
+[00:06:55 -> 00:06:56] con el Worker
+[00:06:56 -> 00:06:59] le podemos dar más customización
+[00:06:59 -> 00:07:02] y tristemente
+[00:07:02 -> 00:07:05] calculo que va a ser en el Worker
+[00:07:05 -> 00:07:07] y nada
+[00:07:07 -> 00:07:09] vamos a tener que ver ahí
+[00:07:09 -> 00:07:11] cómo encararlo, pero va a tener que ser
+[00:07:11 -> 00:07:15] en el web, y lo que vamos a hacer es
+[00:07:15 -> 00:07:17] tengo que meterle un pienso
+[00:07:17 -> 00:07:18] ahí, cómo encararlo
+[00:07:18 -> 00:07:21] por ejemplo lo que hace Santander
+[00:07:21 -> 00:07:22] o otros bancos
+[00:07:22 -> 00:07:26] tiene pregenerado los estados de cuenta
+[00:07:26 -> 00:07:29] para los últimos
+[00:07:29 -> 00:07:30] estados de cuenta, lo tiene pregenerado
+[00:07:32 -> 00:07:34] Pero tipo, como que ya te previene ese caso.
+[00:07:34 -> 00:07:36] O además, hay bancos que lo que hacen
+[00:07:36 -> 00:07:37] es generan todo esto de cuenta.
+[00:07:40 -> 00:07:42] Y te muestran, porque te los envían por mail.
+[00:07:45 -> 00:07:48] Entonces, yo ahí lo que...
+[00:07:48 -> 00:07:49] O sea, creo que en nuestro caso
+[00:07:49 -> 00:07:51] lo más sano es generarlo
+[00:07:51 -> 00:07:53] y avisarle cuando esté.
+[00:07:54 -> 00:07:56] O sea, que no lo puedas descargar en el momento.
+[00:07:56 -> 00:08:00] pero también es que lo vas solicitando
+[00:08:00 -> 00:08:01] que se te vaya generando
+[00:08:01 -> 00:08:03] hay que ver como lo encaramos
+[00:08:03 -> 00:08:05] porque es algo delicado
+[00:08:05 -> 00:08:06] pero muy probable
+[00:08:06 -> 00:08:08] podemos intentar atacarlo en front
+[00:08:08 -> 00:08:10] y si no se puede
+[00:08:10 -> 00:08:13] se va a tener que atacar con el worker
+[00:08:13 -> 00:08:13] y bueno
+[00:08:13 -> 00:08:17] alguna especie de trabajo ahí
+[00:08:17 -> 00:08:18] vamos a tener que meterle un pienso
+[00:08:18 -> 00:08:22] igual no es problema para más adelante
+[00:08:24 -> 00:08:32] ¿Ni en algo más?
+[00:08:34 -> 00:08:35] No, mira.
+[00:08:35 -> 00:08:38] ¿Cómo venimos con esto?
+[00:08:39 -> 00:08:41] ¿Qué estaría faltando?
+[00:08:41 -> 00:08:43] ¿Qué nos estaría bloqueando de la parte del site?
+[00:08:45 -> 00:08:52] No, eso es lo que dijo, o sea, ha sido avanzando el tema que son bastantes flujos con bastantes casos de prueba.
+[00:08:53 -> 00:09:00] Pero está, o sea, la parte de ventos ya está funcionando, la de compra estoy testeando en los últimos detalles
+[00:09:00 -> 00:09:08] y el historial en realidad es más visual que otra cosa, así que es bastante parecido a compra.
+[00:09:09 -> 00:09:16] También mi idea es ahí, fui creando componentes genéricos para justamente no tener que duplicar. duplicar código, así que está
+[00:09:16 -> 00:09:17] básicamente estoy
+[00:09:17 -> 00:09:20] gesteando y también ayudando a que el código
+[00:09:20 -> 00:09:23] quede limpio. Bien, avisarnos
+[00:09:23 -> 00:09:25] cualquier cosa, cualquier bloqueo que vamos a tener
+[00:09:25 -> 00:09:27] ahí. Gastón.
+[00:09:30 -> 00:09:32] Hola, buenas. Bueno, yo estuve
+[00:09:32 -> 00:09:34] optimizando los
+[00:09:34 -> 00:09:35] PDF de accounting
+[00:09:38 -> 00:09:40] pesaban como 200 megas, pues
+[00:09:40 -> 00:09:44] tenían varios elementos que hacían que pesara
+[00:09:44 -> 00:09:47] mucho, entonces los estuve editando y ya los dejé
+[00:09:47 -> 00:09:50] subidos en el mismo hilo
+[00:09:50 -> 00:09:53] si después los pueden ver, a ver si están bien o
+[00:09:53 -> 00:09:57] quieren que los siga optimizando. ¿Cuánto quedaron más o menos?
+[00:09:59 -> 00:10:00] Más o menos de 10 megas cada uno.
+[00:10:04 -> 00:10:06] ¿Te animás a hacer una iteracióncita más?
+[00:10:07 -> 00:10:10] Sí, sí, sí, sí. Lo sigo optimizando.
+[00:10:12 -> 00:10:13] Bueno, después tuve...
+[00:10:13 -> 00:10:15] Mi pregunta es...
+[00:10:15 -> 00:10:20] Bueno, está, hagamos una iteración más y es como lo que...
+[00:10:20 -> 00:10:20] Vale.
+[00:10:22 -> 00:10:28] Después tuve la reunión por el Roundup de marzo.
+[00:10:31 -> 00:10:33] me estuvieron mandando,
+[00:10:34 -> 00:10:38] diciendo más o menos qué era lo que querían mostrar en la presentación.
+[00:10:40 -> 00:10:41] Está como es el miércoles que viene,
+[00:10:41 -> 00:10:45] igual lo voy a atacar más adelante,
+[00:10:45 -> 00:10:51] después de librarme de las tareas prioritarias de este lado.
+[00:10:51 -> 00:10:54] después también estuve
+[00:10:54 -> 00:10:56] reunión con Matías
+[00:10:56 -> 00:10:58] por unas tarjetas que me pidió para
+[00:10:58 -> 00:11:02] Bolivia, unas tarjetas personales
+[00:11:02 -> 00:11:04] después
+[00:11:04 -> 00:11:06] estuve, bueno, revisando
+[00:11:06 -> 00:11:08] unas cosas que
+[00:11:08 -> 00:11:10] mandó Santiago
+[00:11:10 -> 00:11:13] de estado de cuenta y los mails
+[00:11:13 -> 00:11:15] también una PR de Fernando
+[00:11:15 -> 00:11:19] y bueno, y sigo con los análisis
+[00:11:19 -> 00:11:21] de las landings, que me había
+[00:11:21 -> 00:11:22] pausado un poco todo eso
+[00:11:22 -> 00:11:26] pero nada, ya estoy liquidando
+[00:11:26 -> 00:11:28] eso. Ahí, dos cosas
+[00:11:28 -> 00:11:31] estaba mirando las optimizaciones
+[00:11:31 -> 00:11:32] sabía bueno que pese en Kbyte
+[00:11:32 -> 00:11:35] que ni llegue al mega, en el PDF
+[00:11:35 -> 00:11:35] Ah, sí?
+[00:11:35 -> 00:11:38] O sea, a ver si podemos usar
+[00:11:38 -> 00:11:40] alguna plataforma o algo para optimizarlo
+[00:11:41 -> 00:11:43] muy feo, si no
+[00:11:43 -> 00:11:45] Gastón, ahí lo que vamos a hacer es sacar
+[00:11:45 -> 00:11:47] fondos, hacer la presentación
+[00:11:47 -> 00:11:49] más sencilla, recordemos que es una
+[00:11:49 -> 00:11:51] guía y tenemos que subirla mucho
+[00:11:51 -> 00:11:53] a lenguajes y para growth y para papá
+[00:11:53 -> 00:11:54] entonces
+[00:11:54 -> 00:11:57] intentemos que sea lo más
+[00:11:57 -> 00:11:59] me gustaría que no llegue al mes
+[00:11:59 -> 00:12:02] o sea, si colpere, ponerte un objetivo
+[00:12:02 -> 00:12:04] sé que quedó muy linda
+[00:12:04 -> 00:12:04] pero
+[00:12:04 -> 00:12:08] pensemos que esta guía
+[00:12:17 -> 00:12:24] Máximo un medio. O sea, podremos llegar a pelear dos, pero intentemos que sean kbites, ¿sí?
+[00:12:25 -> 00:12:37] Después con lo otro, yo le pasé pila de tareas a Santi. Nada, o sea, pausemos la review del sitio, o sea, si llegas a... tiempo, pausemos la review del sitio y vean
+[00:12:37 -> 00:12:39] cómo atacar todas esas cosas. Pues tiene
+[00:12:39 -> 00:12:41] el módulo de TeamMate, múltiples compañías
+[00:12:41 -> 00:12:43] y el selector. Y de
+[00:12:43 -> 00:12:44] TeamMate después hay varias cosas que hay que
+[00:12:44 -> 00:12:47] trabajar. Mi objetivo es
+[00:12:47 -> 00:12:49] que salga, como dije, ¿no? Lo del selector
+[00:12:49 -> 00:12:51] de múltiples compañías, la visualización
+[00:12:51 -> 00:12:53] de compañías paginadas, el selector
+[00:12:53 -> 00:12:55] de compañías paginadas y así mismo
+[00:13:00 -> 00:13:01] Yo me parece que eso es clave.
+[00:13:03 -> 00:13:10] Son pictures que son accesibles y podemos sacar y realmente nos impactan.
+[00:13:10 -> 00:13:14] Ahí también la parte de teammate, cuando seleccionamos la compañía, tenemos que hacerlo paginado.
+[00:13:16 -> 00:13:20] Tenemos, yo les, no sé si lo había comentado, pero tenemos clientes con muchas compañías
+[00:13:24 -> 00:13:30] de eso vamos a tener clientes que nos ingresan mucho dinero y nos mueven mucho dinero que van
+[00:13:30 -> 00:13:36] a empezar a tener una mala experiencia en la plataforma y no me basta con subir los recursos
+[00:13:36 -> 00:13:45] de WS, entonces tenemos que atacarlo eso esta semanita bien eso nomás, ojo con la tarea
+[00:13:45 -> 00:13:46] el Gastón
+[00:13:46 -> 00:13:47] que tenemos ahí
+[00:13:47 -> 00:13:47] medio a tu
+[00:13:47 -> 00:13:48] doing progress
+[00:13:48 -> 00:13:49] pues parece
+[00:13:49 -> 00:13:50] poquitas
+[00:13:50 -> 00:13:51] y luego ya estamos
+[00:13:51 -> 00:13:52] a mitad del sprint
+[00:13:52 -> 00:13:53] pero eso anda
+[00:13:53 -> 00:13:53] bichándolo
+[00:13:53 -> 00:13:55] ahí si te falta
+[00:13:55 -> 00:13:55] alguna tarea
+[00:13:55 -> 00:13:56] Gastón
+[00:13:56 -> 00:13:58] avísame ahí
+[00:13:58 -> 00:13:59] y trabajamos
+[00:13:59 -> 00:14:01] lo otro que hay
+[00:14:01 -> 00:14:01] teniendo en cuenta
+[00:14:01 -> 00:14:02] es que
+[00:14:02 -> 00:14:02] de marketing
+[00:14:02 -> 00:14:03] habría que
+[00:14:03 -> 00:14:04] trabajar en las cosas
+[00:14:04 -> 00:14:05] ahí que nos pidieron
+[00:14:05 -> 00:14:05] que hoy ya nos
+[00:14:05 -> 00:14:07] estuvieron reclamando
+[00:14:07 -> 00:14:08] nada
+[00:14:08 -> 00:14:09] eso
+[00:14:09 -> 00:14:10] a tener en cuenta
+[00:14:11 -> 00:14:13] esas cosas de marketing también
+[00:14:13 -> 00:14:15] no va a venir bien
+[00:14:15 -> 00:14:18] o sea ahí
+[00:14:18 -> 00:14:20] recuerden que siempre, querán o no
+[00:14:20 -> 00:14:22] ustedes pueden atacar las cosas
+[00:14:22 -> 00:14:24] de marketing pero siempre y cuando
+[00:14:24 -> 00:14:26] sigan moviéndose las cosas de desarrollo
+[00:14:26 -> 00:14:30] lo mismo
+[00:14:30 -> 00:14:31] con la ronda y todas esas cosas
+[00:14:31 -> 00:14:34] siempre
+[00:14:34 -> 00:14:36] la idea es que siempre se organizen para atacar
+[00:14:37 -> 00:14:39] pero siempre que estén tocando
+[00:14:39 -> 00:14:40] lo que puedan de desarrollo.
+[00:14:41 -> 00:14:42] O sea, si las cosas de marketing,
+[00:14:42 -> 00:14:45] lo que siempre está bueno cuando les piden esos requisitos
+[00:14:45 -> 00:14:47] es que vean hasta cuándo tienen para poder
+[00:14:47 -> 00:14:49] presentarlos, cosas que se puedan
+[00:14:49 -> 00:14:50] organizar bien en el tiempo.
+[00:14:53 -> 00:14:54] Bien. Santi.
+[00:14:55 -> 00:14:57] Bien. Yo me creé estas ideas
+[00:14:57 -> 00:14:59] para dos de las tres cosas que pediste,
+[00:14:59 -> 00:15:00] ya las comencé a trabajar,
+[00:15:01 -> 00:15:03] que fue lo de,
+[00:15:04 -> 00:15:05] ¿cómo se llama?
+[00:15:06 -> 00:15:07] Lo de las múltiples compañías
+[00:15:07 -> 00:15:09] y lo de la modal
+[00:15:09 -> 00:15:11] del selector de cuenta.
+[00:15:12 -> 00:15:14] Me falta crear
+[00:15:14 -> 00:15:16] para la de teammates.
+[00:15:18 -> 00:15:20] Y bueno, el viernes también estuve trabajando
+[00:15:20 -> 00:15:21] en una hoja bienvenida
+[00:15:21 -> 00:15:24] que pidió Carlos, que nos juntamos ahí con Gastón.
+[00:15:25 -> 00:15:30] Estuve trabajando en ajustes varios que vimos contigo y con Martina
+[00:15:30 -> 00:15:36] para los flujos de peso boliviano, tanto el video del site,
+[00:15:36 -> 00:15:39] y eso lo dejamos todo ya ajustado y revisado.
+[00:15:41 -> 00:15:48] Y bueno, estuve trabajando un rato también en los ajustes esos que habíamos hablado
+[00:15:48 -> 00:15:51] de cuando las cuentas se habían pausado y se habían bloqueado,
+[00:15:51 -> 00:15:53] detuve eso, ni bien me pasaste
+[00:15:53 -> 00:15:55] las tareas nuevas y me comencé
+[00:15:55 -> 00:15:56] ahí con los
+[00:15:56 -> 00:15:59] con el paginado y esas cosas
+[00:15:59 -> 00:16:02] bien, si, esas tareas probablemente
+[00:16:02 -> 00:16:04] metamos a
+[00:16:04 -> 00:16:08] tenemos que meter a
+[00:16:08 -> 00:16:09] Nahuel y a Jonathan
+[00:16:09 -> 00:16:11] a que nos den una mano con eso antes
+[00:16:11 -> 00:16:14] ellos estuvieron trabajando
+[00:16:14 -> 00:16:17] en eso, no en las múltiples
+[00:16:17 -> 00:16:19] compañías, pero si el intelectual y esas cosas
+[00:16:19 -> 00:16:21] así que la idea es poder hacer
+[00:16:21 -> 00:16:23] yo por ahora el enfoque que haría sería
+[00:16:23 -> 00:16:25] yo continúo trabajando en estas dos cosas
+[00:16:25 -> 00:16:28] si liquido
+[00:16:28 -> 00:16:30] rápido, paso a lo de teammates
+[00:16:30 -> 00:16:31] o si
+[00:16:31 -> 00:16:34] Gastón liquida rápido, eso lo de marketing
+[00:16:34 -> 00:16:36] que para mí sería algo que estaría bueno sacar
+[00:16:36 -> 00:16:37] esta semana, se pasa
+[00:16:37 -> 00:16:38] a lo de
+[00:16:38 -> 00:16:42] teammates, que sería la siguiente
+[00:16:42 -> 00:16:45] Tengamos en cuenta que lo de teammates
+[00:16:45 -> 00:16:47] Había tres cositas
+[00:16:47 -> 00:16:49] Había varias
+[00:16:49 -> 00:16:52] Teníamos
+[00:16:52 -> 00:16:53] Primero
+[00:16:53 -> 00:16:56] Lo de eliminarse
+[00:16:56 -> 00:16:59] Como teammates y de ver los permisos
+[00:16:59 -> 00:17:00] Que esas son dos cosas
+[00:17:00 -> 00:17:02] Después teníamos el selector
+[00:17:02 -> 00:17:05] Que hoy en día sigue siendo
