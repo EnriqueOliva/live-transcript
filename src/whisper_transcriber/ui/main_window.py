@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import winsound
 from typing import TYPE_CHECKING
 
 from PySide6.QtCore import Qt, Signal, Slot
@@ -16,6 +17,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from whisper_transcriber.io.paths import SOUNDS_DIR
 from whisper_transcriber.ui.audio_meter import AudioMeter
 from whisper_transcriber.ui.log_view import LogView
 from whisper_transcriber.ui.status_bar import StatusBar
@@ -106,6 +108,7 @@ class MainWindow(QMainWindow):
     def _on_toggle(self) -> None:
         if self._is_running:
             self._stop_session()
+            winsound.PlaySound(str(SOUNDS_DIR / "success.wav"), winsound.SND_FILENAME | winsound.SND_ASYNC)
         else:
             self._start_session()
 
@@ -140,6 +143,7 @@ class MainWindow(QMainWindow):
     @Slot(str)
     def _on_error(self, message: str) -> None:
         logger.error("Worker error: %s", message)
+        winsound.PlaySound(str(SOUNDS_DIR / "error.wav"), winsound.SND_FILENAME | winsound.SND_ASYNC)
         if self._is_running:
             self._stop_session()
 
