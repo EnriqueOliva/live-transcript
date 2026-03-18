@@ -61,9 +61,7 @@ class Application:
         self._is_running = True
         self._stop_event.clear()
 
-        transcript_dir, log_dir = create_session_paths()
-        self._transcript_dir = transcript_dir
-        log_setup.add_session_handler(log_dir)
+        self._transcript_dir = create_session_paths()
 
         self._pa = pyaudio.PyAudio()
         device = resolve_device(self._pa, self._settings.audio_device)
@@ -101,7 +99,7 @@ class Application:
                 else:
                     logger.warning("Mic open failed, proceeding with loopback only")
 
-        self._writer = TranscriptWriter(transcript_dir)
+        self._writer = TranscriptWriter(self._transcript_dir)
         self._writer.open()
 
         accumulator = AudioAccumulator(
@@ -126,7 +124,7 @@ class Application:
         self._threads.append(threading.Thread(target=worker.run, daemon=True, name="Transcription"))
         for t in self._threads:
             t.start()
-        logger.info("Session started in %s", transcript_dir)
+        logger.info("Session started in %s", self._transcript_dir)
 
     def _cleanup_failed_start(self) -> None:
         if self._pa is not None:
@@ -135,7 +133,6 @@ class Application:
         if self._writer is not None:
             self._writer.close()
             self._writer = None
-        log_setup.remove_session_handler()
         self._is_running = False
 
     def open_session_folder(self) -> None:
@@ -161,7 +158,6 @@ class Application:
             self._pa = None
         elif self._pa is not None:
             logger.warning("Skipping pa.terminate() - threads still alive")
-        log_setup.remove_session_handler()
         self._threads.clear()
         self._is_running = False
         logger.info("Session stopped")
