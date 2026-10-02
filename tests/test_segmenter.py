@@ -3,14 +3,14 @@ from itertools import pairwise
 import numpy as np
 import pytest
 
-from tests.helpers import EnergyClassifier, build, feed_in_blocks, noise, seconds, silence, tone
-from whisper_transcriber.stt.segmenter import (
+from livevox.stt.segmenter import (
     DIGITAL_SILENCE_PEAK,
     CutReason,
     PieceKind,
     SegmenterConfig,
     SpeechSegmenter,
 )
+from tests.helpers import EnergyClassifier, build, feed_in_blocks, noise, seconds, silence, tone
 
 BLOCK_PATTERNS = [[seconds(1.0)], [441, 1024, 17, 4800, 512, 3], [512], [seconds(7.3)], [100_000]]
 

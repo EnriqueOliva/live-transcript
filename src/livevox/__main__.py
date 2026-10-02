@@ -6,11 +6,11 @@ import os
 import sys
 from pathlib import Path
 
-from whisper_transcriber.stt.cuda_runtime import register_library_directories
+from livevox.stt.cuda_runtime import register_library_directories
 
 
 def _parse_arguments(arguments: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="whisper_transcriber", description="Live Transcript")
+    parser = argparse.ArgumentParser(prog="livevox", description="Livevox")
     parser.add_argument(
         "--transcribe-file",
         type=Path,
@@ -24,7 +24,7 @@ def _parse_arguments(arguments: list[str]) -> argparse.Namespace:
 
 
 def _run_file_transcription(arguments: argparse.Namespace) -> int:
-    from whisper_transcriber.offline import transcribe_file
+    from livevox.offline import transcribe_file
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)-8s | %(message)s")
     media_path: Path = arguments.transcribe_file
@@ -35,9 +35,9 @@ def _run_file_transcription(arguments: argparse.Namespace) -> int:
 def _run_gui() -> int:
     from PySide6.QtWidgets import QApplication
 
-    from whisper_transcriber.bootstrap import Application
-    from whisper_transcriber.ui.main_window import MainWindow
-    from whisper_transcriber.ui.theme import apply_dark_theme
+    from livevox.bootstrap import Application
+    from livevox.ui.main_window import MainWindow
+    from livevox.ui.theme import apply_dark_theme
 
     qt_app = QApplication(sys.argv)
     apply_dark_theme(qt_app)

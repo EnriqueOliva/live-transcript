@@ -7,15 +7,15 @@ from pathlib import Path
 
 import numpy as np
 
-from whisper_transcriber.audio.timeline import SAMPLE_RATE
-from whisper_transcriber.io.transcript_writer import TranscriptWriter
-from whisper_transcriber.session.events import LoggingEvents, SessionEvents
-from whisper_transcriber.session.messages import EndOfStream, PipelineStatistics
-from whisper_transcriber.session.report import SessionReport
-from whisper_transcriber.stt.segmenter import SegmenterConfig, SpeechSegmenter
-from whisper_transcriber.stt.vad import StreamingVad
-from whisper_transcriber.stt.whisper_engine import WhisperEngine
-from whisper_transcriber.stt.worker import DecodingOptions, TranscriptionWorker
+from livevox.audio.timeline import SAMPLE_RATE
+from livevox.io.transcript_writer import TranscriptWriter
+from livevox.session.events import LoggingEvents, SessionEvents
+from livevox.session.messages import EndOfStream, PipelineStatistics
+from livevox.session.report import SessionReport
+from livevox.stt.segmenter import SegmenterConfig, SpeechSegmenter
+from livevox.stt.vad import StreamingVad
+from livevox.stt.whisper_engine import WhisperEngine
+from livevox.stt.worker import DecodingOptions, TranscriptionWorker
 
 logger = logging.getLogger(__name__)
 

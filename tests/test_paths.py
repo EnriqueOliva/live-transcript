@@ -1,8 +1,8 @@
 import re
 from datetime import datetime
 
-from whisper_transcriber.io import paths
-from whisper_transcriber.io.paths import create_session_paths
+from livevox.io import paths
+from livevox.io.paths import create_session_paths
 
 SESSION_PATTERN = r"\[\d{2}-\d{2}-\d{2}\] - \[\d{2}-\d{2}\]"
 

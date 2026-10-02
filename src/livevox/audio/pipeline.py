@@ -8,21 +8,21 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pyaudiowpatch as pyaudio
 
-from whisper_transcriber.audio.capture import (
+from livevox.audio.capture import (
     CaptureClosed,
     CaptureData,
     CaptureFinished,
     CaptureFormat,
     CaptureNotice,
 )
-from whisper_transcriber.audio.conversion import StreamConverter
-from whisper_transcriber.audio.mixer import SourceMixer
-from whisper_transcriber.session.messages import EndOfStream, Notice, PipelineStatistics
+from livevox.audio.conversion import StreamConverter
+from livevox.audio.mixer import SourceMixer
+from livevox.session.messages import EndOfStream, Notice, PipelineStatistics
 
 if TYPE_CHECKING:
-    from whisper_transcriber.io.recording import WavRecorder
-    from whisper_transcriber.session.events import SessionEvents
-    from whisper_transcriber.stt.segmenter import Piece, SpeechSegmenter
+    from livevox.io.recording import WavRecorder
+    from livevox.session.events import SessionEvents
+    from livevox.stt.segmenter import Piece, SpeechSegmenter
 
 logger = logging.getLogger(__name__)
 

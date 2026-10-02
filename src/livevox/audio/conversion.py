@@ -3,7 +3,7 @@ from __future__ import annotations
 import av
 import numpy as np
 
-from whisper_transcriber.audio.timeline import INT16_FULL_SCALE, SAMPLE_RATE
+from livevox.audio.timeline import INT16_FULL_SCALE, SAMPLE_RATE
 
 BYTES_PER_SAMPLE = 2
 EMPTY = np.zeros(0, dtype=np.float32)

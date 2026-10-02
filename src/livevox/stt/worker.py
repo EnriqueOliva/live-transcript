@@ -11,16 +11,16 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-from whisper_transcriber.audio.timeline import samples_to_seconds, seconds_to_samples
-from whisper_transcriber.session.events import LineStyle, SessionEvents, TranscriptLine
-from whisper_transcriber.session.messages import EndOfStream, Notice
-from whisper_transcriber.session.report import SessionReport
-from whisper_transcriber.stt.handoff import TimedWord, choose_handoff
-from whisper_transcriber.stt.segmenter import DIGITAL_SILENCE_PEAK, Piece, PieceKind, Snapshot
-from whisper_transcriber.stt.whisper_engine import TranscriptionResult, WhisperEngine
+from livevox.audio.timeline import samples_to_seconds, seconds_to_samples
+from livevox.session.events import LineStyle, SessionEvents, TranscriptLine
+from livevox.session.messages import EndOfStream, Notice
+from livevox.session.report import SessionReport
+from livevox.stt.handoff import TimedWord, choose_handoff
+from livevox.stt.segmenter import DIGITAL_SILENCE_PEAK, Piece, PieceKind, Snapshot
+from livevox.stt.whisper_engine import TranscriptionResult, WhisperEngine
 
 if TYPE_CHECKING:
-    from whisper_transcriber.io.transcript_writer import TranscriptWriter
+    from livevox.io.transcript_writer import TranscriptWriter
 
 logger = logging.getLogger(__name__)
 

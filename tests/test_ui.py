@@ -4,12 +4,12 @@ pytest.importorskip("PySide6")
 
 from PySide6.QtWidgets import QApplication, QMessageBox
 
-from whisper_transcriber.config.settings import AppSettings
-from whisper_transcriber.logging.log_bridge import GuiBridge
-from whisper_transcriber.ui import main_window
-from whisper_transcriber.ui.main_window import MainWindow, SessionState
-from whisper_transcriber.ui.signals import WorkerSignals
-from whisper_transcriber.ui.transcript_view import TranscriptView
+from livevox.config.settings import AppSettings
+from livevox.logging.log_bridge import GuiBridge
+from livevox.ui import main_window
+from livevox.ui.main_window import MainWindow, SessionState
+from livevox.ui.signals import WorkerSignals
+from livevox.ui.transcript_view import TranscriptView
 
 
 @pytest.fixture(scope="module")

@@ -3,6 +3,12 @@ import queue
 import numpy as np
 import pytest
 
+from livevox.io.transcript_writer import TranscriptWriter
+from livevox.session.events import LineStyle
+from livevox.session.messages import EndOfStream, Notice, PipelineStatistics
+from livevox.stt.handoff import TimedWord
+from livevox.stt.segmenter import CutReason, Piece, PieceKind, Snapshot, SpeechSegmenter
+from livevox.stt.worker import FAILURE_TEXT, DecodingOptions, TranscriptionWorker
 from tests.helpers import (
     EnergyClassifier,
     FakeEngine,
@@ -14,12 +20,6 @@ from tests.helpers import (
     tone,
     words_for,
 )
-from whisper_transcriber.io.transcript_writer import TranscriptWriter
-from whisper_transcriber.session.events import LineStyle
-from whisper_transcriber.session.messages import EndOfStream, Notice, PipelineStatistics
-from whisper_transcriber.stt.handoff import TimedWord
-from whisper_transcriber.stt.segmenter import CutReason, Piece, PieceKind, Snapshot, SpeechSegmenter
-from whisper_transcriber.stt.worker import FAILURE_TEXT, DecodingOptions, TranscriptionWorker
 
 
 def make_piece(index, start, end, audio=None, kind=PieceKind.SPEECH, reason=CutReason.PAUSE,

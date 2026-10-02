@@ -1,9 +1,9 @@
 import numpy as np
 import pytest
 
+from livevox.audio.timeline import SAMPLE_RATE
+from livevox.stt.handoff import LEAN_BEFORE_SECONDS, TimedWord, choose_handoff
 from tests.helpers import seconds, tone
-from whisper_transcriber.audio.timeline import SAMPLE_RATE
-from whisper_transcriber.stt.handoff import LEAN_BEFORE_SECONDS, TimedWord, choose_handoff
 
 CUT = seconds(20.0)
 NEXT_START = seconds(17.0)

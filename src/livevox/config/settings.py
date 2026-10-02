@@ -6,7 +6,7 @@ import os
 from dataclasses import asdict, dataclass, fields
 from pathlib import Path
 
-from whisper_transcriber.io.paths import SETTINGS_PATH
+from livevox.io.paths import SETTINGS_PATH
 
 logger = logging.getLogger(__name__)
 

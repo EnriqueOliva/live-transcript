@@ -2,8 +2,8 @@ import wave
 
 import numpy as np
 
-from whisper_transcriber.io import recording
-from whisper_transcriber.io.recording import WavRecorder, float_to_int16
+from livevox.io import recording
+from livevox.io.recording import WavRecorder, float_to_int16
 
 
 def read_wav(path):

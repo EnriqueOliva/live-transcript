@@ -5,8 +5,8 @@ import time
 import pyaudiowpatch as pyaudio
 import pytest
 
-from whisper_transcriber.audio import capture
-from whisper_transcriber.audio.capture import (
+from livevox.audio import capture
+from livevox.audio.capture import (
     CaptureClosed,
     CaptureData,
     CaptureFinished,

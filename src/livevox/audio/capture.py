@@ -10,7 +10,7 @@ from typing import Any, Protocol
 
 import pyaudiowpatch as pyaudio
 
-from whisper_transcriber.audio.devices import (
+from livevox.audio.devices import (
     DefaultOutputWatcher,
     find_render_device,
     get_default_input_device,

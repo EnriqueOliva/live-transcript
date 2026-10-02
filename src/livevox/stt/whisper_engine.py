@@ -8,8 +8,8 @@ from typing import Any
 
 import numpy as np
 
-from whisper_transcriber.stt.cuda_runtime import CPU_COMPUTE_TYPE, compute_type_for, resolve_device
-from whisper_transcriber.stt.handoff import TimedWord
+from livevox.stt.cuda_runtime import CPU_COMPUTE_TYPE, compute_type_for, resolve_device
+from livevox.stt.handoff import TimedWord
 
 logger = logging.getLogger(__name__)
 

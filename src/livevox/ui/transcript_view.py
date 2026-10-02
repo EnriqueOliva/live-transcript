@@ -2,7 +2,7 @@ from PySide6.QtCore import Slot
 from PySide6.QtGui import QColor, QFont, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import QPlainTextEdit
 
-from whisper_transcriber.session.events import LineStyle
+from livevox.session.events import LineStyle
 
 NORMAL_COLOR = QColor(220, 220, 220)
 UNCERTAIN_COLOR = QColor(130, 130, 130)

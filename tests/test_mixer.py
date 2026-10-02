@@ -1,7 +1,7 @@
 import numpy as np
 
-from whisper_transcriber.audio.mixer import SourceMixer
-from whisper_transcriber.audio.timeline import SAMPLE_RATE
+from livevox.audio.mixer import SourceMixer
+from livevox.audio.timeline import SAMPLE_RATE
 
 
 def drain(mixer):

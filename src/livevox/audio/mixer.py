@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from whisper_transcriber.audio.timeline import seconds_to_samples
+from livevox.audio.timeline import seconds_to_samples
 
 DEFAULT_MAXIMUM_SKEW_SECONDS = 0.5
 EMPTY = np.zeros(0, dtype=np.float32)

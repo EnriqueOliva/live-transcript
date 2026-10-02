@@ -7,17 +7,17 @@ import threading
 import time
 from pathlib import Path
 
-from whisper_transcriber.audio.capture import CaptureManager
-from whisper_transcriber.audio.pipeline import AudioPipeline
-from whisper_transcriber.io.recording import WavRecorder
-from whisper_transcriber.io.transcript_writer import TranscriptWriter
-from whisper_transcriber.session.events import LoggingEvents
-from whisper_transcriber.session.messages import PipelineStatistics
-from whisper_transcriber.stt.cuda_runtime import register_library_directories
-from whisper_transcriber.stt.segmenter import SpeechSegmenter
-from whisper_transcriber.stt.vad import StreamingVad
-from whisper_transcriber.stt.whisper_engine import WhisperEngine
-from whisper_transcriber.stt.worker import TranscriptionWorker
+from livevox.audio.capture import CaptureManager
+from livevox.audio.pipeline import AudioPipeline
+from livevox.io.recording import WavRecorder
+from livevox.io.transcript_writer import TranscriptWriter
+from livevox.session.events import LoggingEvents
+from livevox.session.messages import PipelineStatistics
+from livevox.stt.cuda_runtime import register_library_directories
+from livevox.stt.segmenter import SpeechSegmenter
+from livevox.stt.vad import StreamingVad
+from livevox.stt.whisper_engine import WhisperEngine
+from livevox.stt.worker import TranscriptionWorker
 
 READY_TIMEOUT = 10.0
 
@@ -32,7 +32,7 @@ def main() -> int:
     arguments = parser.parse_args()
 
     register_library_directories()
-    output_dir = arguments.output or Path(tempfile.mkdtemp(prefix="live-transcript-smoke-"))
+    output_dir = arguments.output or Path(tempfile.mkdtemp(prefix="livevox-smoke-"))
     output_dir.mkdir(parents=True, exist_ok=True)
     writer = TranscriptWriter(output_dir)
     writer.open()
