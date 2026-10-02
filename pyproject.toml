@@ -7,10 +7,12 @@ requires-python = ">=3.12,<3.13"
 license = "MIT"
 dependencies = [
     "faster-whisper>=1.2.1,<2",
+    "ctranslate2>=4.6.3,<5",
+    "av>=12",
+    "onnxruntime>=1.17",
     "PySide6>=6.8,<7",
     "PyAudioWPatch>=0.2.12,<1",
     "numpy>=1.26,<3",
-    "scipy>=1.12,<2",
 ]
 
 [dependency-groups]
@@ -21,9 +23,7 @@ dev = [
     "mypy>=1.15",
 ]
 cuda = [
-    "torch>=2.9.1,<3",
-    "nvidia-cublas-cu12>=12.8",
-    "nvidia-cudnn-cu12>=9.8",
+    "nvidia-cublas-cu12>=12.8,<13",
 ]
 
 [build-system]
@@ -32,14 +32,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/whisper_transcriber"]
-
-[tool.uv.sources]
-torch = [{ index = "pytorch-cu128" }]
-
-[[tool.uv.index]]
-name = "pytorch-cu128"
-url = "https://download.pytorch.org/whl/cu128"
-explicit = true
 
 [tool.ruff]
 line-length = 120
@@ -68,7 +60,7 @@ no_implicit_optional = true
 show_error_codes = true
 
 [[tool.mypy.overrides]]
-module = ["faster_whisper.*", "pyaudiowpatch.*", "ctranslate2.*", "scipy.*"]
+module = ["faster_whisper.*", "pyaudiowpatch.*", "ctranslate2.*", "av.*", "onnxruntime.*"]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
@@ -82,4 +74,5 @@ addopts = ["-v", "--tb=short", "--strict-markers", "--timeout=10"]
 markers = [
     "slow: marks tests as slow",
     "gpu: marks tests requiring CUDA GPU",
+    "model: marks tests that load a real Whisper model",
 ]

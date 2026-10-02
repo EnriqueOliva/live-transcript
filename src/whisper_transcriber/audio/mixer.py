@@ -1,70 +1,76 @@
 from __future__ import annotations
 
-import logging
-import queue
-import threading
-
 import numpy as np
 
-logger = logging.getLogger(__name__)
+from whisper_transcriber.audio.timeline import seconds_to_samples
 
-MIX_TIMEOUT = 0.02
+DEFAULT_MAXIMUM_SKEW_SECONDS = 0.5
+EMPTY = np.zeros(0, dtype=np.float32)
 
 
-class StreamMixer:
-    def __init__(
-        self,
-        loopback_queue: queue.SimpleQueue,
-        mic_queue: queue.SimpleQueue,
-        output_queue: queue.SimpleQueue,
-        stop_event: threading.Event,
-    ) -> None:
-        self._loopback_q = loopback_queue
-        self._mic_q = mic_queue
-        self._output_q = output_queue
-        self._stop_event = stop_event
+class _SourceBuffer:
+    def __init__(self) -> None:
+        self._chunks: list[np.ndarray] = []
+        self._length = 0
 
-    def run(self) -> None:
-        logger.info("Stream mixer started")
-        while not self._stop_event.is_set():
-            loopback_chunks = self._drain_all(self._loopback_q)
-            mic_chunks = self._drain_all(self._mic_q)
+    def __len__(self) -> int:
+        return self._length
 
-            if not loopback_chunks and not mic_chunks:
-                self._stop_event.wait(timeout=MIX_TIMEOUT)
-                continue
+    def push(self, samples: np.ndarray) -> None:
+        if samples.size:
+            self._chunks.append(np.asarray(samples, dtype=np.float32))
+            self._length += samples.size
 
-            loopback_data = b"".join(loopback_chunks) if loopback_chunks else None
-            mic_data = b"".join(mic_chunks) if mic_chunks else None
+    def take(self, count: int) -> np.ndarray:
+        if count <= 0:
+            return EMPTY
+        joined = np.concatenate(self._chunks) if len(self._chunks) > 1 else self._chunks[0]
+        taken = joined[:count]
+        rest = joined[count:]
+        self._chunks = [rest] if rest.size else []
+        self._length = rest.size
+        return taken
 
-            if loopback_data is not None and mic_data is not None:
-                self._output_q.put_nowait(self._mix(loopback_data, mic_data))
-            elif loopback_data is not None:
-                self._output_q.put_nowait(loopback_data)
-            elif mic_data is not None:
-                self._output_q.put_nowait(mic_data)
 
-        logger.info("Stream mixer stopped")
+class SourceMixer:
+    def __init__(self, maximum_skew_seconds: float = DEFAULT_MAXIMUM_SKEW_SECONDS) -> None:
+        self._maximum_skew = seconds_to_samples(maximum_skew_seconds)
+        self._sources: dict[str, _SourceBuffer] = {}
 
-    @staticmethod
-    def _drain_all(q: queue.SimpleQueue) -> list[bytes]:
-        chunks = []
-        while True:
-            try:
-                chunks.append(q.get_nowait())
-            except Exception:
-                break
-        return chunks
+    @property
+    def source_names(self) -> list[str]:
+        return list(self._sources)
 
-    @staticmethod
-    def _mix(a: bytes, b: bytes) -> bytes:
-        arr_a = np.frombuffer(a, dtype=np.int16).astype(np.float32)
-        arr_b = np.frombuffer(b, dtype=np.int16).astype(np.float32)
-        max_len = max(len(arr_a), len(arr_b))
-        padded_a = np.zeros(max_len, dtype=np.float32)
-        padded_b = np.zeros(max_len, dtype=np.float32)
-        padded_a[: len(arr_a)] = arr_a
-        padded_b[: len(arr_b)] = arr_b
-        mixed = padded_a + padded_b
-        mixed = np.clip(mixed, -32768, 32767)
-        return mixed.astype(np.int16).tobytes()
+    def add_source(self, name: str) -> None:
+        if name not in self._sources:
+            self._sources[name] = _SourceBuffer()
+
+    def push(self, name: str, samples: np.ndarray) -> None:
+        self.add_source(name)
+        self._sources[name].push(samples)
+
+    def pending_samples(self) -> int:
+        return max((len(buffer) for buffer in self._sources.values()), default=0)
+
+    def pull(self) -> np.ndarray:
+        if not self._sources:
+            return EMPTY
+        common = min(len(buffer) for buffer in self._sources.values())
+        leading = max(len(buffer) for buffer in self._sources.values())
+        excess = leading - common - self._maximum_skew
+        count = common + max(0, excess)
+        return self._mix(count)
+
+    def flush(self) -> np.ndarray:
+        return self._mix(self.pending_samples())
+
+    def _mix(self, count: int) -> np.ndarray:
+        if count <= 0:
+            return EMPTY
+        mixed = np.zeros(count, dtype=np.float32)
+        for buffer in self._sources.values():
+            taken = buffer.take(min(count, len(buffer)))
+            mixed[: taken.size] += taken
+        if len(self._sources) > 1:
+            np.clip(mixed, -1.0, 1.0, out=mixed)
+        return mixed

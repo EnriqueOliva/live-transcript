@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import QObject, Signal, SignalInstance
 
 _GUI_FORMAT = "%(asctime)s | %(levelname)-8s | %(message)s"
 _GUI_DATE_FORMAT = "%H:%M:%S"
@@ -20,7 +20,7 @@ class GuiBridge(logging.Handler):
         self._formatter = logging.Formatter(_GUI_FORMAT, datefmt=_GUI_DATE_FORMAT)
 
     @property
-    def signal(self) -> Signal:
+    def signal(self) -> SignalInstance:
         return self._emitter.log_record
 
     def emit(self, record: logging.LogRecord) -> None:

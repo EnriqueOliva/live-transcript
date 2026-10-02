@@ -1,132 +1,121 @@
 # Live Transcript
 
-Real-time system audio transcription for Windows using [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
-
-Captures WASAPI loopback audio (what your speakers play) and produces a live transcript. Built for transcribing Zoom lectures, meetings, podcasts, or any audio playing on your system.
+Real-time transcription of everything your Windows PC plays (Zoom, Meet, Teams, YouTube, a lecture), on your own machine with [faster-whisper](https://github.com/SYSTRAN/faster-whisper). Text appears about a second after each sentence ends.
 
 ![PySide6](https://img.shields.io/badge/GUI-PySide6-blue)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-green)
 ![License: MIT](https://img.shields.io/badge/license-MIT-yellow)
 
-## Features
+## No word is dropped by the pipeline
 
-- Real-time transcription with Whisper turbo model
-- Works on **any Windows machine** (CPU or NVIDIA GPU)
-- WASAPI loopback capture (system audio, no virtual cables needed)
-- Optional microphone recording with audio mixing
-- Audio visualizer (EQ frequency bars)
-- Automatic silence detection with heartbeat status
-- Session-based output with plain text and timestamped transcripts
-- Hold-back boundary merging (zero word loss at chunk boundaries)
-- Dark mode PySide6 GUI
+The app is built so that no audio is ever thrown away on the way to the model:
 
-## Requirements
+- **Every captured sample is transcribed.** Audio is cut into pieces only inside pauses, the pieces cover the stream end to end, and every piece goes to the model. Only stretches of exact digital silence are skipped. Nothing is skipped because the PC is busy: pieces wait in a queue until they are done.
+- **Cuts never split a word.** The cut goes to the quietest moment of a pause found by Silero VAD. If someone talks for 22 seconds without a single pause, the next piece starts 3 seconds earlier and word timestamps decide where one piece stops and the next begins, leaning toward repeating a word rather than losing one.
+- **Nothing inside faster-whisper may discard text.** Its silence skip, its own VAD and its timestamp filtering are off.
+- **Sentences the model stops reading halfway are recovered.** Whisper sometimes ends a piece early and drops the rest of it. Decoding resumes from the last word for as long as the VAD is confident speech remains. The only text ever thrown away is a resumed fragment too long to fit the audio it covers (over 40 letters per second, like a "¡Gracias!" squeezed into 50 ms), the signature of Whisper's silence hallucinations.
+- **Doubtful text is kept, never deleted.** Text from stretches with no detected speech, and low-confidence resumed fragments, are shown dimmed and marked `(?)` in the timestamped file.
+- **The audio is saved.** Every session writes `recording.wav`, updated every second, so even a crash or a failed piece can be transcribed again later.
+- **Every session is audited.** `session_report.txt` states how much audio was captured and how much was processed (100% unless something went wrong, and then it says what).
 
-- Windows 11
-- Python 3.12 (managed by uv)
-
-**For GPU acceleration (optional):** NVIDIA GPU with CUDA support and driver 535+
+What it cannot promise: the model itself can still mishear a word, like any speech recognizer. When that matters, the recording is there to check.
 
 ## Setup
 
-### 1. Install uv
+Install [uv](https://docs.astral.sh/uv/), then:
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+git clone git@github.com:EnriqueOliva/live-transcript.git
+cd live-transcript
+uv sync                 # any PC, CPU only
+uv sync --group cuda    # NVIDIA GPU: adds cuBLAS (about 800 MB), no PyTorch or cuDNN needed
 ```
 
-### 2. Install dependencies
+If [Sotvox](https://github.com/EnriqueOliva/sotvox) is installed with GPU acceleration enabled, its CUDA libraries are reused automatically and `--group cuda` is not needed.
 
-**CPU only** (works on any machine):
-```bash
-uv python install 3.12
-uv sync
-```
+The speech model (about 1.5 GB) downloads on first use and is shared with Sotvox.
 
-**With NVIDIA GPU acceleration** (faster inference):
-```bash
-uv python install 3.12
-uv sync --group cuda
-```
+## Use
 
-### 3. Verify setup
-
-```bash
-uv run python scripts/verify_gpu.py
-```
-
-The Whisper model (~1.5 GB) downloads automatically on first run.
-
-## Run
-
-```bash
+```powershell
 uv run python -m whisper_transcriber
 ```
 
-1. Select model (turbo recommended) and language
-2. Optionally check "Mic" to also record your microphone
-3. Click **Start** to begin transcription
-4. Click **Open Folder** to view transcripts
-5. Click **Stop** when done
+1. Pick the model (`turbo` is the default) and the language (Spanish by default, or `Auto`)
+2. Tick **Mic** to also transcribe your own voice
+3. Click **Start**
+4. Click **Stop**. The app keeps transcribing until the last word is written, then plays a sound. Closing the window does the same.
 
-### Performance
+The grey line at the bottom is the sentence still being spoken. It is replaced by the final text when the sentence ends.
 
-| Hardware | Model | Inference per 30s chunk |
-|----------|-------|------------------------|
-| RTX 4070 (CUDA) | turbo, float16 | ~0.1s |
-| i5-12th gen (CPU) | turbo, int8 | ~3-8s |
-| i5-12th gen (CPU) | small, int8 | ~1-2s |
-
-The app auto-detects GPU availability. On CPU, it uses `int8` quantization for maximum speed.
+If the default output device changes (headphones plugged in, Bluetooth connecting), capture follows it automatically.
 
 ## Output
 
-Sessions are saved with timestamped folders:
+Each session gets its own folder in `Documents\live-transcripts\[DD-MM-YY] - [HH-MM]\`:
 
-```
-transcripts/[DD-MM-YY] - [HH-MM]/
-    transcript.txt                    # plain text
-    transcript_with_timestamps.txt    # [HH:MM:SS -> HH:MM:SS] text
+| File | Content |
+| --- | --- |
+| `transcript.txt` | the plain transcript |
+| `transcript_with_timestamps.txt` | `[HH:MM:SS -> HH:MM:SS] text`, doubtful lines marked `(?)`, device changes noted |
+| `recording.wav` | the full session audio (16 kHz mono, about 115 MB per hour) |
+| `session_report.txt` | coverage audit: captured vs processed audio, forced cuts, failures |
 
-logs/[DD-MM-YY] - [HH-MM]/
-    session.log                       # detailed session log
-```
+Logs and settings live in `%LOCALAPPDATA%\LiveTranscript`.
 
-## Architecture
+## Transcribe a recording or any file
 
-4-thread pipeline with queue-based communication:
+The same pipeline runs on a file:
 
-```
-WASAPI Loopback ─┐
-                  ├─► Accumulator ─► Transcription Worker ─► GUI + File
-Microphone (opt) ─┘   (30s chunks    (faster-whisper         (PySide6 +
-                       5s overlap)     turbo model)            transcript writer)
+```powershell
+uv run python -m whisper_transcriber --transcribe-file "path\to\recording.wav" --language es
 ```
 
-## CUDA Troubleshooting
+## How it works
 
-If CTranslate2 reports missing CUDA libraries after `uv sync --group cuda`:
-
-**Option A**: The `nvidia-cublas-cu12` and `nvidia-cudnn-cu12` pip packages are included. Add to your PATH:
 ```
-.venv/Lib/site-packages/nvidia/cublas/bin
-.venv/Lib/site-packages/nvidia/cudnn/bin
+WASAPI loopback ─┐                                    ┌─► recording.wav
+(+ silent         ├─► 16 kHz mono ─► mixer ───────────┤
+ keep-alive)      │   (stateful                       └─► Silero VAD ─► pieces cut in pauses
+Microphone (opt) ─┘    resampling)                                         │
+                                                                           ▼
+                                   transcript files + window ◄── faster-whisper worker
 ```
 
-**Option B**: Download CUDA12_v3 from [Purfview/whisper-standalone-win](https://github.com/Purfview/whisper-standalone-win/releases/tag/libs). Extract DLLs to the project root.
+- Capture: `PyAudioWPatch` WASAPI loopback. A silent stream keeps the loopback running during silence, the same trick OBS uses.
+- Conversion: channels averaged, resampled with a stateful PyAV resampler, so block boundaries leave no clicks or gaps.
+- Segmentation: streaming Silero VAD (the model bundled with faster-whisper). A pause of 0.5 s ends a sentence, shorter breaths are accepted as a sentence gets long, 22 s is the hard limit.
+- Transcription: `turbo` (large-v3-turbo), beam 5, temperature fallback, word timestamps, and the previous sentence's words as context.
+
+## Measuring it
+
+`scripts/evaluate_recall.py` replays a recording through the full pipeline (48 kHz capture, conversion, segmentation, model) and compares the result word by word with a reference transcript:
+
+```powershell
+uv run python scripts/evaluate_recall.py meeting.mp4 reference.txt
+```
+
+On a 30-minute Spanish meeting, measured against a full-file transcription of the same recording:
+
+| | Previous version (30 s chunks) | This version |
+| --- | --- | --- |
+| Audio processed | not tracked | 100% |
+| Reference words found | 84.2% | 90.7% |
+| Missed stretches of 4+ words | 31 (301 words, the longest a whole 35-word sentence) | 8 (50 words, mostly repetitions like "sí sí sí sí") |
+
+`scripts/live_smoke_test.py` runs the real capture on whatever is playing for 40 seconds and prints the session report.
 
 ## Development
 
-```bash
-uv run ruff check src/ tests/
-uv run ruff format --check src/ tests/
-uv run mypy src/
+```powershell
+uv run ruff check src tests scripts
+uv run mypy src
 uv run pytest
 ```
 
-## Legal Note
+## Legal note
 
-Ensure compliance with your institution's recording policies and the terms of service of any conferencing software before capturing audio.
+Make sure recording is allowed by your institution and by the terms of the conferencing software you use.
 
 ## License
 

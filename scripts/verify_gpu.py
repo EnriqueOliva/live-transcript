@@ -1,7 +1,15 @@
 from __future__ import annotations
 
+import importlib.util
 import os
 import sys
+
+from whisper_transcriber.stt.cuda_runtime import (
+    cuda_device_count,
+    cuda_libraries_loadable,
+    register_library_directories,
+    resolve_device,
+)
 
 
 def main() -> None:
@@ -12,59 +20,33 @@ def main() -> None:
     print(f"Python:           {sys.version.split()[0]}")
     print(f"Platform:         {sys.platform}")
     print(f"CPU cores:        {os.cpu_count()}")
-
     print()
 
-    try:
-        import ctranslate2
+    directories = register_library_directories()
+    for directory in directories:
+        print(f"CUDA libraries:   {directory}")
 
-        print(f"CTranslate2:      {ctranslate2.__version__}")
-        cpu_types = ctranslate2.get_supported_compute_types("cpu")
-        print(f"CPU types:        {cpu_types}")
+    import ctranslate2
 
-        gpu_count = ctranslate2.get_cuda_device_count()
-        print(f"CUDA GPU count:   {gpu_count}")
-
-        if gpu_count > 0:
-            cuda_types = ctranslate2.get_supported_compute_types("cuda")
-            print(f"CUDA types:       {cuda_types}")
-    except ImportError:
-        print("CTranslate2:      NOT INSTALLED")
-
+    print(f"CTranslate2:      {ctranslate2.__version__}")
+    print(f"CPU types:        {ctranslate2.get_supported_compute_types('cpu')}")
+    device_count = cuda_device_count()
+    print(f"CUDA GPU count:   {device_count}")
+    libraries_ready = cuda_libraries_loadable()
+    print(f"cuBLAS loadable:  {libraries_ready}")
+    if device_count > 0 and libraries_ready:
+        print(f"CUDA types:       {ctranslate2.get_supported_compute_types('cuda')}")
     print()
 
-    try:
-        import torch
-
-        print(f"PyTorch:          {torch.__version__}")
-        print(f"CUDA available:   {torch.cuda.is_available()}")
-        if torch.cuda.is_available():
-            print(f"CUDA version:     {torch.version.cuda}")
-            print(f"Device:           {torch.cuda.get_device_name(0)}")
-            mem = torch.cuda.get_device_properties(0).total_memory
-            print(f"VRAM:             {mem / (1024**3):.1f} GB")
-    except ImportError:
-        print("PyTorch:          not installed (OK for CPU mode)")
-
+    has_faster_whisper = importlib.util.find_spec("faster_whisper") is not None
+    print(f"faster-whisper:   {'OK' if has_faster_whisper else 'NOT INSTALLED'}")
     print()
 
-    try:
-        from faster_whisper import WhisperModel
-
-        print("faster-whisper:   OK")
-    except ImportError:
-        print("faster-whisper:   NOT INSTALLED")
-
-    print()
-
-    if ctranslate2.get_cuda_device_count() > 0:
-        print("Mode:             GPU (CUDA)")
-        print("Recommended:      turbo model, float16")
-    else:
-        print("Mode:             CPU")
-        print("Recommended:      turbo model, int8")
+    device, compute_type = resolve_device("auto")
+    print(f"Mode:             {'GPU (CUDA)' if device == 'cuda' else 'CPU'}")
+    print(f"Recommended:      turbo model, {compute_type}")
+    if device_count > 0 and not libraries_ready:
         print("Tip:              Run 'uv sync --group cuda' to enable GPU acceleration")
-
     print("=" * 60)
 
 

@@ -2,21 +2,13 @@
 
 ## Prerequisites
 
-The only thing you need to install manually is **uv** (the Python package manager). Everything else — Python, dependencies, models — is handled automatically.
-
-### Install uv
-
-Open PowerShell and run:
+The only thing to install by hand is **uv**, the Python package manager. Python, the dependencies and the speech model are handled automatically.
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Close and reopen your terminal after installing so `uv` is on your PATH.
-
-That's it. No need to install Python, CUDA, cuDNN, or anything else manually.
-
----
+Close and reopen the terminal afterwards so `uv` is on your PATH.
 
 ## Clone and run
 
@@ -39,43 +31,39 @@ uv sync
 uv run python -m whisper_transcriber
 ```
 
-The first run will download the Whisper turbo model (~1.5 GB). Subsequent runs are instant.
-
----
+The first run downloads the Whisper turbo model (about 1.5 GB). Later runs start right away. If Sotvox already downloaded it, it is reused.
 
 ## What each command does
 
 | Command | What it does |
 |---|---|
-| `uv sync` | Installs Python 3.12 + all dependencies (~500 MB). CPU-only inference. |
-| `uv sync --group cuda` | Same as above + PyTorch CUDA + NVIDIA DLLs (~4 GB total). Enables GPU acceleration. |
-| `uv run python -m whisper_transcriber` | Launches the app. Auto-detects GPU/CPU. |
-| `uv run python scripts/verify_gpu.py` | Shows detected hardware and recommended config. |
+| `uv sync` | Installs Python 3.12 and the dependencies. CPU transcription. |
+| `uv sync --group cuda` | Same, plus NVIDIA cuBLAS (about 800 MB on disk). Enables GPU transcription. |
+| `uv run python -m whisper_transcriber` | Launches the app. Uses the GPU when cuBLAS is available, the CPU otherwise. |
+| `uv run python scripts/verify_gpu.py` | Shows the detected hardware and the mode the app will use. |
 
----
-
-## Verify setup (optional)
+## Verify the setup (optional)
 
 ```bash
 uv run python scripts/verify_gpu.py
 ```
 
-**Desktop output** (NVIDIA GPU detected):
+With a GPU ready it ends with:
+
 ```
 Mode:             GPU (CUDA)
 Recommended:      turbo model, float16
 ```
 
-**Laptop output** (CPU only):
+On a CPU-only machine:
+
 ```
 Mode:             CPU
 Recommended:      turbo model, int8
 ```
 
----
-
 ## Notes
 
-- **NVIDIA driver**: If you have an NVIDIA GPU, make sure the driver is version 535 or newer. Check with `nvidia-smi`. No need to install CUDA Toolkit separately — the pip packages handle it.
-- **Windows Developer Mode**: If the turbo model fails to download with a "privilege" error, enable Developer Mode in Settings > System > For Developers. This allows the HuggingFace cache to create symlinks.
-- **Firewall/proxy**: The first run downloads models from huggingface.co. Make sure it's not blocked.
+- **NVIDIA driver**: version 535 or newer (`nvidia-smi` shows it). The CUDA Toolkit is not needed, and neither are PyTorch or cuDNN: CTranslate2 4.6.3 and later only needs cuBLAS.
+- **GPU present but not set up**: the app notices that cuBLAS is missing and transcribes on the CPU instead of failing.
+- **Firewall or proxy**: the first run downloads the model from huggingface.co.

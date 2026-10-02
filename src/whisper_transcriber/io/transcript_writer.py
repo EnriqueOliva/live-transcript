@@ -5,7 +5,11 @@ import os
 from pathlib import Path
 from typing import TextIO
 
+from whisper_transcriber.session.events import LineStyle, TranscriptLine
+
 logger = logging.getLogger(__name__)
+
+UNCERTAIN_MARKER = "(?)"
 
 
 def _format_timestamp(seconds: float) -> str:
@@ -29,6 +33,10 @@ class TranscriptWriter:
     def has_error(self) -> bool:
         return self._has_error
 
+    @property
+    def session_dir(self) -> Path:
+        return self._session_dir
+
     def open(self) -> None:
         self._session_dir.mkdir(parents=True, exist_ok=True)
         self._plain = open(self._plain_path, "a", encoding="utf-8")  # noqa: SIM115
@@ -36,22 +44,30 @@ class TranscriptWriter:
         logger.info("Transcript files opened in %s", self._session_dir)
 
     def write_segment(self, text: str, start: float, end: float) -> None:
+        self.write_line(TranscriptLine(text=text, start=start, end=end, style=LineStyle.NORMAL))
+
+    def write_line(self, line: TranscriptLine) -> None:
         if self._plain is None or self._stamped is None:
             logger.error("TranscriptWriter not opened")
             return
-        stripped = text.strip()
+        stripped = line.text.strip()
         if not stripped:
             return
+        stamp = f"[{_format_timestamp(line.start)} -> {_format_timestamp(line.end)}]"
         try:
-            self._plain.write(stripped + "\n")
+            if line.style is LineStyle.NOTICE:
+                self._stamped.write(f"{stamp} [{stripped}]\n")
+            elif line.style is LineStyle.UNCERTAIN:
+                self._plain.write(stripped + "\n")
+                self._stamped.write(f"{stamp} {UNCERTAIN_MARKER} {stripped}\n")
+            else:
+                self._plain.write(stripped + "\n")
+                self._stamped.write(f"{stamp} {stripped}\n")
             self._flush(self._plain)
-            ts_start = _format_timestamp(start)
-            ts_end = _format_timestamp(end)
-            self._stamped.write(f"[{ts_start} -> {ts_end}] {stripped}\n")
             self._flush(self._stamped)
         except OSError:
             self._has_error = True
-            logger.exception("Failed to write transcript segment")
+            logger.exception("Failed to write transcript line")
 
     def _flush(self, handle: TextIO) -> None:
         try:

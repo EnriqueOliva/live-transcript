@@ -2,164 +2,212 @@ from __future__ import annotations
 
 import gc
 import logging
-from pathlib import Path
+from collections.abc import Callable
+from dataclasses import dataclass, field
 from typing import Any
 
-import ctranslate2
 import numpy as np
+
+from whisper_transcriber.stt.cuda_runtime import CPU_COMPUTE_TYPE, compute_type_for, resolve_device
+from whisper_transcriber.stt.handoff import TimedWord
 
 logger = logging.getLogger(__name__)
 
-LOCAL_SUBDIR = "turbo-local"
+FINAL_BEAM_SIZE = 5
+PARTIAL_BEAM_SIZE = 1
+FALLBACK_TEMPERATURES = (0.0, 0.2, 0.4, 0.6, 0.8, 1.0)
+GREEDY_TEMPERATURE = 0.0
+COMPRESSION_RATIO_THRESHOLD = 2.4
+LOG_PROBABILITY_THRESHOLD = -1.0
+NON_SPEECH_PROBABILITY_THRESHOLD = 0.6
+CONTINUATION_GUARD_SECONDS = 0.2
+MAXIMUM_LETTERS_PER_SECOND = 40.0
+MINIMUM_ALIGNED_SECONDS = 0.02
+UNCERTAIN_CONTINUATION_LOG_PROBABILITY = -0.8
+
+ModelFactory = Callable[[str, str, str], Any]
+DeviceResolver = Callable[[str], tuple[str, str]]
 
 
-def detect_device() -> tuple[str, str]:
-    try:
-        if ctranslate2.get_cuda_device_count() > 0:
-            logger.info("CUDA detected, using GPU")
-            return "cuda", "float16"
-    except Exception:
-        pass
-    logger.info("No CUDA GPU found, using CPU")
-    return "cpu", "int8"
+@dataclass(frozen=True)
+class TranscriptionResult:
+    text: str
+    language: str
+    language_probability: float
+    looks_like_non_speech: bool
+    words: list[TimedWord] = field(default_factory=list)
+    uncertain_text: str = ""
+    passes: int = 1
+
+
+def _create_whisper_model(model_name: str, device: str, compute_type: str) -> Any:
+    from faster_whisper import WhisperModel
+
+    return WhisperModel(model_name, device=device, compute_type=compute_type)
 
 
 class WhisperEngine:
     def __init__(
         self,
-        model_size: str,
-        language: str,
-        compute_type: str,
-        model_dir: str | Path,
+        model_name: str,
+        compute_type_setting: str = "auto",
         initial_prompt: str = "",
         hotwords: str = "",
+        model_factory: ModelFactory = _create_whisper_model,
+        device_resolver: DeviceResolver = resolve_device,
     ) -> None:
-        self._model_size = model_size
-        self._language = language
-        self._model_dir = Path(model_dir)
+        self._model_name = model_name
+        self._compute_type_setting = compute_type_setting
         self._initial_prompt = initial_prompt or None
         self._hotwords = hotwords or None
+        self._model_factory = model_factory
+        self._device_resolver = device_resolver
         self._model: Any = None
+        self._device = "cpu"
+        self._compute_type = CPU_COMPUTE_TYPE
 
-        if compute_type == "auto":
-            self._device, self._compute_type = detect_device()
-        else:
-            self._device = "cuda" if ctranslate2.get_cuda_device_count() > 0 else "cpu"
-            self._compute_type = compute_type
-            if self._device == "cpu" and compute_type in ("float16", "int8_float16"):
-                self._compute_type = "int8"
+    @property
+    def model_name(self) -> str:
+        return self._model_name
+
+    @property
+    def device(self) -> str:
+        return self._device
+
+    @property
+    def compute_type(self) -> str:
+        return self._compute_type
 
     @property
     def is_loaded(self) -> bool:
         return self._model is not None
 
-    def _resolve_model_path(self) -> str:
-        if self._model_size == "turbo":
-            local = self._model_dir / LOCAL_SUBDIR
-            if local.exists() and any(local.iterdir()):
-                logger.info("Using local turbo model at %s", local)
-                return str(local)
-        return self._model_size
-
-    def load_model(self) -> None:
-        from faster_whisper import WhisperModel
-
-        model_path = self._resolve_model_path()
-        logger.info(
-            "Loading model '%s' (compute=%s, device=%s)",
-            model_path, self._compute_type, self._device,
-        )
+    def load(self) -> None:
+        self._device, self._compute_type = self._device_resolver(self._compute_type_setting)
+        logger.info("Loading model '%s' on %s (%s)", self._model_name, self._device, self._compute_type)
         try:
-            self._model = WhisperModel(
-                model_path,
-                device=self._device,
-                compute_type=self._compute_type,
-                download_root=str(self._model_dir),
-            )
+            self._model = self._model_factory(self._model_name, self._device, self._compute_type)
         except Exception:
-            logger.warning("Primary load failed, trying fallback")
-            self._fallback_load(model_path)
-        self._log_device_info()
-        logger.info("Model loaded: %s (%s on %s)", self._model_size, self._compute_type, self._device)
+            if self._device == "cuda":
+                logger.exception("Loading on the GPU failed, falling back to CPU")
+                self._switch_to_cpu()
+            else:
+                raise
+        logger.info("Model loaded: %s on %s (%s)", self._model_name, self._device, self._compute_type)
 
-    def _fallback_load(self, original_path: str) -> None:
-        from faster_whisper import WhisperModel
-
-        gc.collect()
-        self._try_empty_cache()
-
-        fallback_type = "int8" if self._device == "cpu" else "int8_float16"
-        try:
-            self._model = WhisperModel(
-                original_path, device=self._device, compute_type=fallback_type,
-                download_root=str(self._model_dir),
-            )
-            self._compute_type = fallback_type
-            return
-        except Exception:
-            pass
-
-        gc.collect()
-        self._try_empty_cache()
-        logger.warning("Falling back to CPU with int8")
-        self._device = "cpu"
-        self._compute_type = "int8"
-        self._model = WhisperModel(
-            original_path, device="cpu", compute_type="int8",
-            download_root=str(self._model_dir),
-        )
-
-    def unload_model(self) -> None:
-        if self._model is not None:
-            del self._model
-            self._model = None
+    def recover_after_failure(self) -> None:
+        if self._device == "cuda":
+            logger.warning("Transcription failed on the GPU, switching this session to CPU")
+            self._switch_to_cpu()
+        else:
             gc.collect()
-            self._try_empty_cache()
-            logger.info("Model unloaded")
 
-    def transcribe(self, audio: np.ndarray) -> tuple[list, Any]:
-        segments_gen, info = self._model.transcribe(
+    def unload(self) -> None:
+        self._model = None
+        gc.collect()
+
+    def transcribe(
+        self,
+        audio: np.ndarray,
+        language: str | None,
+        word_timestamps: bool = False,
+        fast: bool = False,
+        prompt: str | None = None,
+        speech_end_seconds: float | None = None,
+    ) -> TranscriptionResult:
+        if self._model is None:
+            raise RuntimeError("model not loaded")
+        segments_iterator, info = self._model.transcribe(
             audio,
-            language=self._language if self._language != "Auto" else None,
-            beam_size=1,
-            temperature=0.0,
-            compression_ratio_threshold=2.4,
-            log_prob_threshold=-1.0,
-            no_speech_threshold=0.6,
+            language=language,
+            beam_size=PARTIAL_BEAM_SIZE if fast else FINAL_BEAM_SIZE,
+            best_of=PARTIAL_BEAM_SIZE if fast else FINAL_BEAM_SIZE,
+            temperature=GREEDY_TEMPERATURE if fast else FALLBACK_TEMPERATURES,
+            compression_ratio_threshold=COMPRESSION_RATIO_THRESHOLD,
+            log_prob_threshold=LOG_PROBABILITY_THRESHOLD,
+            no_speech_threshold=None,
             condition_on_previous_text=False,
-            vad_filter=True,
-            vad_parameters=dict(
-                threshold=0.5,
-                min_speech_duration_ms=250,
-                min_silence_duration_ms=500,
-                speech_pad_ms=200,
-            ),
-            word_timestamps=False,
-            initial_prompt=self._initial_prompt,
+            vad_filter=False,
+            without_timestamps=True,
+            word_timestamps=word_timestamps,
+            initial_prompt=self._combined_prompt(prompt),
             hotwords=self._hotwords,
         )
-        segments = list(segments_gen)
-        return segments, info
+        collected = _collect_segments(segments_iterator, word_timestamps, speech_end_seconds)
+        segments = collected.certain
+        text = "".join(segment.text for segment in segments).strip()
+        words = [
+            TimedWord(start=float(word.start), end=float(word.end), text=word.word)
+            for segment in segments
+            for word in (segment.words or [])
+        ]
+        looks_like_non_speech = any(
+            segment.no_speech_prob > NON_SPEECH_PROBABILITY_THRESHOLD
+            and segment.avg_logprob < LOG_PROBABILITY_THRESHOLD
+            for segment in segments
+        )
+        return TranscriptionResult(
+            text=text,
+            language=info.language,
+            language_probability=float(info.language_probability),
+            looks_like_non_speech=looks_like_non_speech,
+            words=words,
+            uncertain_text="".join(segment.text for segment in collected.uncertain).strip(),
+            passes=collected.passes,
+        )
 
-    @staticmethod
-    def _try_empty_cache() -> None:
-        try:
-            import torch
-            if torch.cuda.is_available():
-                torch.cuda.empty_cache()
-        except ImportError:
-            pass
+    def _combined_prompt(self, prompt: str | None) -> str | None:
+        parts = [part for part in (self._initial_prompt, prompt) if part]
+        return " ".join(parts) if parts else None
 
-    def _log_device_info(self) -> None:
-        if self._device == "cuda":
-            try:
-                import torch
-                if torch.cuda.is_available():
-                    total = torch.cuda.get_device_properties(0).total_memory / 1024**3
-                    logger.info("GPU: %s | VRAM: %.1f GB", torch.cuda.get_device_name(0), total)
-            except ImportError:
-                logger.info("CUDA device active (torch not installed for detailed info)")
+    def _switch_to_cpu(self) -> None:
+        self._model = None
+        gc.collect()
+        self._device = "cpu"
+        self._compute_type = compute_type_for("cpu", self._compute_type_setting)
+        self._model = self._model_factory(self._model_name, self._device, self._compute_type)
+
+
+def _segment_end(segment: Any) -> float:
+    if segment.words:
+        return float(segment.words[-1].end)
+    else:
+        return float(segment.end)
+
+
+def _is_speakable(segment: Any) -> bool:
+    letters = sum(character.isalnum() for character in str(segment.text))
+    duration = max(float(segment.end - segment.start), MINIMUM_ALIGNED_SECONDS)
+    letters_per_second: float = letters / duration
+    return letters_per_second <= MAXIMUM_LETTERS_PER_SECOND
+
+
+@dataclass
+class _CollectedSegments:
+    certain: list[Any] = field(default_factory=list)
+    uncertain: list[Any] = field(default_factory=list)
+    passes: int = 0
+
+
+def _collect_segments(
+    segments_iterator: Any, word_timestamps: bool, speech_end_seconds: float | None,
+) -> _CollectedSegments:
+    collected = _CollectedSegments()
+    for segment in segments_iterator:
+        collected.passes += 1
+        is_continuation = collected.passes > 1
+        if is_continuation and not _is_speakable(segment):
+            logger.debug("Discarded an unspeakable continuation %r over %.2fs", segment.text, segment.end - segment.start)
+            break
+        elif is_continuation and (collected.uncertain or segment.avg_logprob < UNCERTAIN_CONTINUATION_LOG_PROBABILITY):
+            collected.uncertain.append(segment)
         else:
-            import os
-            cores = os.cpu_count() or 0
-            logger.info("CPU mode: %d cores available", cores)
+            collected.certain.append(segment)
+        speech_remains = (
+            word_timestamps
+            and speech_end_seconds is not None
+            and _segment_end(segment) < speech_end_seconds - CONTINUATION_GUARD_SECONDS
+        )
+        if not speech_remains:
+            break
+    return collected

@@ -10,7 +10,6 @@ class TestLoadValid:
             "model_size": "turbo",
             "language": "es",
             "compute_type": "int8_float16",
-            "chunk_duration": 10.0,
             "theme": "light",
         }
         settings_path.write_text(json.dumps(data), encoding="utf-8")
@@ -18,7 +17,6 @@ class TestLoadValid:
         assert loaded.model_size == "turbo"
         assert loaded.language == "es"
         assert loaded.compute_type == "int8_float16"
-        assert loaded.chunk_duration == 10.0
         assert loaded.theme == "light"
 
 
@@ -26,7 +24,7 @@ class TestLoadFallbacks:
     def test_load_missing_file_returns_defaults(self, settings_path):
         loaded = AppSettings.load(settings_path)
         assert loaded.model_size == "turbo"
-        assert loaded.language == "en"
+        assert loaded.language == "es"
 
     def test_load_corrupted_json_returns_defaults(self, settings_path):
         settings_path.parent.mkdir(parents=True, exist_ok=True)
@@ -40,7 +38,6 @@ class TestLoadFallbacks:
         loaded = AppSettings.load(settings_path)
         assert loaded.language == "fr"
         assert loaded.model_size == "turbo"
-        assert loaded.chunk_duration == 30.0
 
 
 class TestSaveReload:
@@ -49,7 +46,6 @@ class TestSaveReload:
             model_size="small",
             language="de",
             compute_type="float16",
-            chunk_duration=15.0,
             theme="dark",
         )
         original.save(settings_path)
@@ -57,7 +53,6 @@ class TestSaveReload:
         assert reloaded.model_size == original.model_size
         assert reloaded.language == original.language
         assert reloaded.compute_type == original.compute_type
-        assert reloaded.chunk_duration == original.chunk_duration
 
 
 class TestUnknownFields:
@@ -76,10 +71,19 @@ class TestUnknownFields:
 
 
 class TestValidation:
-    def test_invalid_model_resets(self):
+    def test_invalid_model_resets_to_turbo(self):
         s = AppSettings(model_size="nonexistent")
-        assert s.model_size == "large-v3"
+        assert s.model_size == "turbo"
 
-    def test_chunk_duration_clamped(self):
-        s = AppSettings(chunk_duration=999.0)
-        assert s.chunk_duration == 60.0
+    def test_invalid_compute_type_resets_to_auto(self):
+        s = AppSettings(compute_type="bogus")
+        assert s.compute_type == "auto"
+
+    def test_settings_from_the_chunked_version_still_load(self, settings_path):
+        settings_path.parent.mkdir(parents=True, exist_ok=True)
+        old = {"model_size": "turbo", "language": "es", "chunk_duration": 30.0, "overlap_seconds": 5.0,
+               "audio_device": 12}
+        settings_path.write_text(json.dumps(old), encoding="utf-8")
+        loaded = AppSettings.load(settings_path)
+        assert loaded.language == "es"
+        assert not hasattr(loaded, "chunk_duration")
