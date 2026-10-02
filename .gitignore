@@ -7,8 +7,11 @@ __pycache__/
 dist/
 build/
 
-data/models/
-data/settings.json
+data/
+log/
+logs/
+transcripts/
+*.wav
 
 .mypy_cache/
 .pytest_cache/

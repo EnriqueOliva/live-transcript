@@ -58,3 +58,27 @@ class TestEdgeCases:
             writer.write_segment("Context managed", 0.0, 1.0)
         content = (tmp_path / "transcript.txt").read_text(encoding="utf-8")
         assert "Context managed" in content
+
+
+class TestLineStyles:
+    def test_uncertain_lines_are_kept_in_both_files_and_marked_in_the_timestamped_one(self, tmp_path):
+        from whisper_transcriber.session.events import LineStyle, TranscriptLine
+
+        writer = TranscriptWriter(tmp_path)
+        writer.open()
+        writer.write_line(TranscriptLine("Gracias.", 10.0, 12.0, LineStyle.UNCERTAIN))
+        writer.close()
+        assert (tmp_path / "transcript.txt").read_text(encoding="utf-8") == "Gracias.\n"
+        stamped = (tmp_path / "transcript_with_timestamps.txt").read_text(encoding="utf-8")
+        assert stamped == "[00:00:10 -> 00:00:12] (?) Gracias.\n"
+
+    def test_notices_only_go_to_the_timestamped_file(self, tmp_path):
+        from whisper_transcriber.session.events import LineStyle, TranscriptLine
+
+        writer = TranscriptWriter(tmp_path)
+        writer.open()
+        writer.write_line(TranscriptLine("Audio device changed", 5.0, 5.0, LineStyle.NOTICE))
+        writer.close()
+        assert (tmp_path / "transcript.txt").read_text(encoding="utf-8") == ""
+        stamped = (tmp_path / "transcript_with_timestamps.txt").read_text(encoding="utf-8")
+        assert stamped == "[00:00:05 -> 00:00:05] [Audio device changed]\n"

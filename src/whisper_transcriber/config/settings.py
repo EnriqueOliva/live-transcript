@@ -10,24 +10,22 @@ from whisper_transcriber.io.paths import SETTINGS_PATH
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_MODEL = "turbo"
+DEFAULT_LANGUAGE = "es"
+DEFAULT_COMPUTE_TYPE = "auto"
 VALID_MODELS: set[str] = {
     "tiny", "base", "small", "medium",
-    "large-v2", "large-v3", "turbo", "distil-large-v3",
+    "large-v2", "large-v3", "turbo", "large-v3-turbo", "distil-large-v3",
 }
 VALID_COMPUTE: set[str] = {"float16", "int8_float16", "int8", "float32", "auto"}
 VALID_THEMES: set[str] = {"dark", "light", "system"}
-MIN_CHUNK: float = 5.0
-MAX_CHUNK: float = 60.0
 
 
 @dataclass
 class AppSettings:
-    model_size: str = "turbo"
-    language: str = "en"
-    compute_type: str = "auto"
-    chunk_duration: float = 30.0
-    overlap_seconds: float = 5.0
-    audio_device: int | None = None
+    model_size: str = DEFAULT_MODEL
+    language: str = DEFAULT_LANGUAGE
+    compute_type: str = DEFAULT_COMPUTE_TYPE
     theme: str = "dark"
     record_mic: bool = False
     initial_prompt: str = ""
@@ -38,16 +36,13 @@ class AppSettings:
 
     def _validate(self) -> None:
         if self.model_size not in VALID_MODELS:
-            logger.warning("Invalid model_size %r, resetting to large-v3", self.model_size)
-            self.model_size = "large-v3"
+            logger.warning("Invalid model_size %r, resetting to %s", self.model_size, DEFAULT_MODEL)
+            self.model_size = DEFAULT_MODEL
         if self.compute_type not in VALID_COMPUTE:
-            logger.warning("Invalid compute_type %r, resetting to float16", self.compute_type)
-            self.compute_type = "float16"
+            logger.warning("Invalid compute_type %r, resetting to %s", self.compute_type, DEFAULT_COMPUTE_TYPE)
+            self.compute_type = DEFAULT_COMPUTE_TYPE
         if self.theme not in VALID_THEMES:
             self.theme = "dark"
-        self.chunk_duration = max(MIN_CHUNK, min(MAX_CHUNK, self.chunk_duration))
-        max_overlap = self.chunk_duration / 2
-        self.overlap_seconds = max(0.0, min(max_overlap, self.overlap_seconds))
 
     @classmethod
     def load(cls, path: Path | None = None) -> AppSettings:
