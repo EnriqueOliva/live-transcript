@@ -7,20 +7,20 @@ import threading
 from dataclasses import dataclass
 from pathlib import Path
 
-from whisper_transcriber.audio.capture import CaptureManager
-from whisper_transcriber.audio.pipeline import AudioPipeline
-from whisper_transcriber.config.settings import AppSettings
-from whisper_transcriber.io.paths import TRANSCRIPTS_DIR, create_session_paths, ensure_dirs
-from whisper_transcriber.io.recording import WavRecorder
-from whisper_transcriber.io.transcript_writer import TranscriptWriter
-from whisper_transcriber.logging import log_setup
-from whisper_transcriber.logging.log_bridge import GuiBridge
-from whisper_transcriber.session.messages import PipelineStatistics
-from whisper_transcriber.stt.segmenter import SpeechSegmenter
-from whisper_transcriber.stt.vad import StreamingVad
-from whisper_transcriber.stt.whisper_engine import WhisperEngine
-from whisper_transcriber.stt.worker import TranscriptionWorker
-from whisper_transcriber.ui.signals import QtSessionEvents, WorkerSignals
+from livevox.audio.capture import CaptureManager
+from livevox.audio.pipeline import AudioPipeline
+from livevox.config.settings import AppSettings
+from livevox.io.paths import TRANSCRIPTS_DIR, create_session_paths, ensure_dirs
+from livevox.io.recording import WavRecorder
+from livevox.io.transcript_writer import TranscriptWriter
+from livevox.logging import log_setup
+from livevox.logging.log_bridge import GuiBridge
+from livevox.session.messages import PipelineStatistics
+from livevox.stt.segmenter import SpeechSegmenter
+from livevox.stt.vad import StreamingVad
+from livevox.stt.whisper_engine import WhisperEngine
+from livevox.stt.worker import TranscriptionWorker
+from livevox.ui.signals import QtSessionEvents, WorkerSignals
 
 logger = logging.getLogger(__name__)
 

@@ -13,19 +13,19 @@ from pathlib import Path
 
 import numpy as np
 
-from whisper_transcriber.audio.capture import CaptureData, CaptureFinished, CaptureFormat
-from whisper_transcriber.audio.pipeline import AudioPipeline
-from whisper_transcriber.audio.timeline import SAMPLE_RATE
-from whisper_transcriber.io.recording import WavRecorder
-from whisper_transcriber.io.transcript_writer import TranscriptWriter
-from whisper_transcriber.offline import decode_media, transcribe_samples
-from whisper_transcriber.session.events import LoggingEvents
-from whisper_transcriber.session.messages import PipelineStatistics
-from whisper_transcriber.stt.cuda_runtime import register_library_directories
-from whisper_transcriber.stt.segmenter import SegmenterConfig, SpeechSegmenter
-from whisper_transcriber.stt.vad import StreamingVad
-from whisper_transcriber.stt.whisper_engine import WhisperEngine
-from whisper_transcriber.stt.worker import DecodingOptions, TranscriptionWorker
+from livevox.audio.capture import CaptureData, CaptureFinished, CaptureFormat
+from livevox.audio.pipeline import AudioPipeline
+from livevox.audio.timeline import SAMPLE_RATE
+from livevox.io.recording import WavRecorder
+from livevox.io.transcript_writer import TranscriptWriter
+from livevox.offline import decode_media, transcribe_samples
+from livevox.session.events import LoggingEvents
+from livevox.session.messages import PipelineStatistics
+from livevox.stt.cuda_runtime import register_library_directories
+from livevox.stt.segmenter import SegmenterConfig, SpeechSegmenter
+from livevox.stt.vad import StreamingVad
+from livevox.stt.whisper_engine import WhisperEngine
+from livevox.stt.worker import DecodingOptions, TranscriptionWorker
 
 WORD_PATTERN = re.compile(r"[\w']+", re.UNICODE)
 CAPTURE_SAMPLE_RATE = 48000
@@ -137,7 +137,7 @@ def main() -> int:
     if arguments.hard_maximum:
         config = replace(config, hard_maximum_seconds=arguments.hard_maximum,
                          forced_cut_search_seconds=min(config.forced_cut_search_seconds, arguments.hard_maximum / 2))
-    output_dir = arguments.output or Path(tempfile.mkdtemp(prefix="live-transcript-eval-"))
+    output_dir = arguments.output or Path(tempfile.mkdtemp(prefix="livevox-eval-"))
     output_dir.mkdir(parents=True, exist_ok=True)
     engine = WhisperEngine(arguments.model)
     decoding = DecodingOptions(context_seconds=arguments.context, prompt_previous_text=arguments.prompt)

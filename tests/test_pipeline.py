@@ -4,18 +4,18 @@ from itertools import pairwise
 
 import numpy as np
 
-from tests.helpers import EnergyClassifier, RecordingEvents
-from whisper_transcriber.audio.capture import (
+from livevox.audio.capture import (
     CaptureClosed,
     CaptureData,
     CaptureFinished,
     CaptureFormat,
     CaptureNotice,
 )
-from whisper_transcriber.audio.pipeline import INPUT_OVERFLOW_FLAG, AudioPipeline, compute_band_levels
-from whisper_transcriber.io.recording import WavRecorder
-from whisper_transcriber.session.messages import EndOfStream, Notice, PipelineStatistics
-from whisper_transcriber.stt.segmenter import Piece, SpeechSegmenter
+from livevox.audio.pipeline import INPUT_OVERFLOW_FLAG, AudioPipeline, compute_band_levels
+from livevox.io.recording import WavRecorder
+from livevox.session.messages import EndOfStream, Notice, PipelineStatistics
+from livevox.stt.segmenter import Piece, SpeechSegmenter
+from tests.helpers import EnergyClassifier, RecordingEvents
 
 CAPTURE_RATE = 48000
 

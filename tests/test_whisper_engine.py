@@ -3,7 +3,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from whisper_transcriber.stt.whisper_engine import WhisperEngine
+from livevox.stt.whisper_engine import WhisperEngine
 
 
 def word(start, end, text):

@@ -1,4 +1,4 @@
-# Live Transcript
+# Livevox
 
 Real-time transcription of everything your Windows PC plays (Zoom, Meet, Teams, YouTube, a lecture), on your own machine with [faster-whisper](https://github.com/SYSTRAN/faster-whisper). Text appears about a second after each sentence ends.
 
@@ -25,8 +25,8 @@ What it cannot promise: the model itself can still mishear a word, like any spee
 Install [uv](https://docs.astral.sh/uv/), then:
 
 ```powershell
-git clone git@github.com:EnriqueOliva/live-transcript.git
-cd live-transcript
+git clone git@github.com:EnriqueOliva/livevox.git
+cd livevox
 uv sync                 # any PC, CPU only
 uv sync --group cuda    # NVIDIA GPU: adds cuBLAS (about 800 MB), no PyTorch or cuDNN needed
 ```
@@ -38,7 +38,7 @@ The speech model (about 1.5 GB) downloads on first use and is shared with Sotvox
 ## Use
 
 ```powershell
-uv run python -m whisper_transcriber
+uv run python -m livevox
 ```
 
 1. Pick the model (`turbo` is the default) and the language (Spanish by default, or `Auto`)
@@ -52,7 +52,7 @@ If the default output device changes (headphones plugged in, Bluetooth connectin
 
 ## Output
 
-Each session gets its own folder in `Documents\live-transcripts\[DD-MM-YY] - [HH-MM]\`:
+Each session gets its own folder in `Documents\livevox-transcripts\[DD-MM-YY] - [HH-MM]\`:
 
 | File | Content |
 | --- | --- |
@@ -61,14 +61,14 @@ Each session gets its own folder in `Documents\live-transcripts\[DD-MM-YY] - [HH
 | `recording.wav` | the full session audio (16 kHz mono, about 115 MB per hour) |
 | `session_report.txt` | coverage audit: captured vs processed audio, forced cuts, failures |
 
-Logs and settings live in `%LOCALAPPDATA%\LiveTranscript`.
+Logs and settings live in `%LOCALAPPDATA%\Livevox`.
 
 ## Transcribe a recording or any file
 
 The same pipeline runs on a file:
 
 ```powershell
-uv run python -m whisper_transcriber --transcribe-file "path\to\recording.wav" --language es
+uv run python -m livevox --transcribe-file "path\to\recording.wav" --language es
 ```
 
 ## How it works
@@ -112,6 +112,8 @@ uv run ruff check src tests scripts
 uv run mypy src
 uv run pytest
 ```
+
+The next planned step, rebuilding Livevox as Sotvox's twin, is described in [docs/HANDOFF.md](docs/HANDOFF.md).
 
 ## Legal note
 

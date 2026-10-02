@@ -4,8 +4,8 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from whisper_transcriber.audio.quiet import find_quiet_point
-from whisper_transcriber.audio.timeline import SAMPLE_RATE, samples_to_seconds, seconds_to_samples
+from livevox.audio.quiet import find_quiet_point
+from livevox.audio.timeline import SAMPLE_RATE, samples_to_seconds, seconds_to_samples
 
 WINDOW_EDGE_SECONDS = 0.2
 TAIL_GUARD_SECONDS = 0.4

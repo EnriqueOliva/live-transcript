@@ -1,4 +1,4 @@
-from whisper_transcriber.stt import cuda_runtime
+from livevox.stt import cuda_runtime
 
 
 class TestComputeType:

@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from typing import TextIO
 
-from whisper_transcriber.session.events import LineStyle, TranscriptLine
+from livevox.session.events import LineStyle, TranscriptLine
 
 logger = logging.getLogger(__name__)
 

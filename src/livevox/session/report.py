@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from whisper_transcriber.audio.timeline import samples_to_seconds
+from livevox.audio.timeline import samples_to_seconds
 
 PERCENT = 100.0
 
@@ -68,7 +68,7 @@ class SessionReport:
 
     def to_text(self) -> str:
         lines = [
-            "Live Transcript session report",
+            "Livevox session report",
             f"Finished: {self.finished_at}",
             f"Result: {'COMPLETE' if self.is_complete else 'INCOMPLETE'}",
             "",

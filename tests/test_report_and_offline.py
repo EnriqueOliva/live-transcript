@@ -1,7 +1,7 @@
+from livevox.offline import transcribe_samples
+from livevox.session.report import SessionReport
+from livevox.stt.vad import FRAME_SAMPLES
 from tests.helpers import FakeEngine, RecordingEvents, build, result, silence, tone, words_for
-from whisper_transcriber.offline import transcribe_samples
-from whisper_transcriber.session.report import SessionReport
-from whisper_transcriber.stt.vad import FRAME_SAMPLES
 
 
 class TestReport:
@@ -33,7 +33,7 @@ class EnergyVad:
 
 class TestOfflineTranscription:
     def test_file_mode_uses_the_same_lossless_path(self, tmp_path, monkeypatch):
-        import whisper_transcriber.offline as offline
+        import livevox.offline as offline
 
         monkeypatch.setattr(offline, "StreamingVad", EnergyVad)
         audio = build(tone(3.0), silence(1.0), tone(4.0), silence(1.0))

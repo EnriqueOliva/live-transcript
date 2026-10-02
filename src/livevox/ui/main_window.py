@@ -19,16 +19,16 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from whisper_transcriber.ui.audio_meter import AudioMeter
-from whisper_transcriber.ui.log_view import LogView
-from whisper_transcriber.ui.status_bar import StatusBar
-from whisper_transcriber.ui.status_view import StatusView
-from whisper_transcriber.ui.transcript_view import TranscriptView
+from livevox.ui.audio_meter import AudioMeter
+from livevox.ui.log_view import LogView
+from livevox.ui.status_bar import StatusBar
+from livevox.ui.status_view import StatusView
+from livevox.ui.transcript_view import TranscriptView
 
 if TYPE_CHECKING:
-    from whisper_transcriber.config.settings import AppSettings
-    from whisper_transcriber.logging.log_bridge import GuiBridge
-    from whisper_transcriber.ui.signals import WorkerSignals
+    from livevox.config.settings import AppSettings
+    from livevox.logging.log_bridge import GuiBridge
+    from livevox.ui.signals import WorkerSignals
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         self._state = SessionState.IDLE
         self._close_when_finished = False
         self._had_error = False
-        self.setWindowTitle("Live Transcript")
+        self.setWindowTitle("Livevox")
         self.setMinimumSize(800, 600)
         self.resize(900, 700)
 

@@ -1,6 +1,6 @@
 from PySide6.QtCore import QObject, Signal
 
-from whisper_transcriber.session.events import TranscriptLine
+from livevox.session.events import TranscriptLine
 
 
 class WorkerSignals(QObject):

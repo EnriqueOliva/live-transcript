@@ -9,7 +9,7 @@ from typing import BinaryIO
 
 import numpy as np
 
-from whisper_transcriber.audio.timeline import INT16_FULL_SCALE, INT16_MAXIMUM, SAMPLE_RATE
+from livevox.audio.timeline import INT16_FULL_SCALE, INT16_MAXIMUM, SAMPLE_RATE
 
 logger = logging.getLogger(__name__)
 

@@ -8,9 +8,9 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from whisper_transcriber.audio.quiet import find_quiet_point, window_starts
-from whisper_transcriber.audio.timeline import INT16_FULL_SCALE, samples_to_seconds, seconds_to_samples
-from whisper_transcriber.stt.vad import FRAME_SAMPLES, FrameClassifier
+from livevox.audio.quiet import find_quiet_point, window_starts
+from livevox.audio.timeline import INT16_FULL_SCALE, samples_to_seconds, seconds_to_samples
+from livevox.stt.vad import FRAME_SAMPLES, FrameClassifier
 
 logger = logging.getLogger(__name__)
 

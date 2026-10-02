@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from whisper_transcriber.audio.conversion import StreamConverter
-from whisper_transcriber.audio.timeline import SAMPLE_RATE
+from livevox.audio.conversion import StreamConverter
+from livevox.audio.timeline import SAMPLE_RATE
 
 
 def capture_bytes(duration, rate, channels, seed=0):

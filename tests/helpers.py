@@ -4,10 +4,10 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from whisper_transcriber.audio.timeline import SAMPLE_RATE
-from whisper_transcriber.session.events import TranscriptLine
-from whisper_transcriber.stt.handoff import TimedWord
-from whisper_transcriber.stt.whisper_engine import TranscriptionResult
+from livevox.audio.timeline import SAMPLE_RATE
+from livevox.session.events import TranscriptLine
+from livevox.stt.handoff import TimedWord
+from livevox.stt.whisper_engine import TranscriptionResult
 
 SPEECH_PROBABILITY = 0.9
 SILENCE_PROBABILITY = 0.05

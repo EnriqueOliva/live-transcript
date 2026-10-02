@@ -13,22 +13,22 @@ Close and reopen the terminal afterwards so `uv` is on your PATH.
 ## Clone and run
 
 ```bash
-git clone git@github.com:EnriqueOliva/live-transcript.git
-cd live-transcript
+git clone git@github.com:EnriqueOliva/livevox.git
+cd livevox
 ```
 
 ### Desktop (NVIDIA GPU)
 
 ```bash
 uv sync --group cuda
-uv run python -m whisper_transcriber
+uv run python -m livevox
 ```
 
 ### Laptop (no NVIDIA GPU)
 
 ```bash
 uv sync
-uv run python -m whisper_transcriber
+uv run python -m livevox
 ```
 
 The first run downloads the Whisper turbo model (about 1.5 GB). Later runs start right away. If Sotvox already downloaded it, it is reused.
@@ -39,7 +39,7 @@ The first run downloads the Whisper turbo model (about 1.5 GB). Later runs start
 |---|---|
 | `uv sync` | Installs Python 3.12 and the dependencies. CPU transcription. |
 | `uv sync --group cuda` | Same, plus NVIDIA cuBLAS (about 800 MB on disk). Enables GPU transcription. |
-| `uv run python -m whisper_transcriber` | Launches the app. Uses the GPU when cuBLAS is available, the CPU otherwise. |
+| `uv run python -m livevox` | Launches the app. Uses the GPU when cuBLAS is available, the CPU otherwise. |
 | `uv run python scripts/verify_gpu.py` | Shows the detected hardware and the mode the app will use. |
 
 ## Verify the setup (optional)

@@ -1,6 +1,6 @@
 import numpy as np
 
-from whisper_transcriber.stt.vad import FRAME_SAMPLES, StreamingVad
+from livevox.stt.vad import FRAME_SAMPLES, StreamingVad
 
 
 def speech_like_audio(seconds_count=12, seed=1):

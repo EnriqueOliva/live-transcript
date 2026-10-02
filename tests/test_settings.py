@@ -1,6 +1,6 @@
 import json
 
-from whisper_transcriber.config.settings import AppSettings
+from livevox.config.settings import AppSettings
 
 
 class TestLoadValid:

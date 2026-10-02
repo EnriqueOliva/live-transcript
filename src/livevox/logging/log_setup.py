@@ -7,7 +7,7 @@ import threading
 from datetime import datetime
 from queue import Queue
 
-from whisper_transcriber.io.paths import LOG_DIR
+from livevox.io.paths import LOG_DIR
 
 _LOG_FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s:%(lineno)d | %(message)s"
 _DATE_FORMAT = "%Y-%m-%d %H:%M:%S"

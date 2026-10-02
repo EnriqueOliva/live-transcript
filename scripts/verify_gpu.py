@@ -4,7 +4,7 @@ import importlib.util
 import os
 import sys
 
-from whisper_transcriber.stt.cuda_runtime import (
+from livevox.stt.cuda_runtime import (
     cuda_device_count,
     cuda_libraries_loadable,
     register_library_directories,

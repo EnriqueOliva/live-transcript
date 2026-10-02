@@ -1,5 +1,5 @@
 
-from whisper_transcriber.io.transcript_writer import TranscriptWriter
+from livevox.io.transcript_writer import TranscriptWriter
 
 
 class TestWritePlainText:
@@ -62,7 +62,7 @@ class TestEdgeCases:
 
 class TestLineStyles:
     def test_uncertain_lines_are_kept_in_both_files_and_marked_in_the_timestamped_one(self, tmp_path):
-        from whisper_transcriber.session.events import LineStyle, TranscriptLine
+        from livevox.session.events import LineStyle, TranscriptLine
 
         writer = TranscriptWriter(tmp_path)
         writer.open()
@@ -73,7 +73,7 @@ class TestLineStyles:
         assert stamped == "[00:00:10 -> 00:00:12] (?) Gracias.\n"
 
     def test_notices_only_go_to_the_timestamped_file(self, tmp_path):
-        from whisper_transcriber.session.events import LineStyle, TranscriptLine
+        from livevox.session.events import LineStyle, TranscriptLine
 
         writer = TranscriptWriter(tmp_path)
         writer.open()

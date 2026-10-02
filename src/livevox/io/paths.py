@@ -7,8 +7,8 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-APP_FOLDER_NAME = "LiveTranscript"
-TRANSCRIPTS_FOLDER_NAME = "live-transcripts"
+APP_FOLDER_NAME = "Livevox"
+TRANSCRIPTS_FOLDER_NAME = "livevox-transcripts"
 SESSION_STAMP_FORMAT = "[%d-%m-%y] - [%H-%M]"
 FIRST_DUPLICATE_SUFFIX = 2
 

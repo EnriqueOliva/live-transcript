@@ -197,11 +197,11 @@ Buffer sizes of **1024–4096 frames** are typical. Smaller buffers reduce laten
 **uv** by Astral (written in Rust, 10–100× faster than pip) is the modern Python project manager. Install on Windows with `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`. Core workflow:
 
 ```bash
-uv init whisper-transcriber --python 3.12   # Creates project scaffold
-cd whisper-transcriber
+uv init livevox --python 3.12   # Creates project scaffold
+cd livevox
 uv add faster-whisper customtkinter numpy scipy PyAudioWPatch  # Add deps
 uv add --group dev pytest ruff              # Dev dependencies
-uv run python -m whisper_transcriber        # Run the app
+uv run python -m livevox        # Run the app
 ```
 
 uv generates a `.python-version` file (pins interpreter), `pyproject.toml` (PEP 621 metadata + `[tool.uv]` config), and `uv.lock` (cross-platform lockfile). It auto-creates `.venv/` on first run and auto-downloads Python if missing. Both `pyproject.toml` and `uv.lock` should be committed to version control.
@@ -214,7 +214,7 @@ The official uv integration for PyTorch uses named indexes with `explicit = true
 
 ```toml
 [project]
-name = "whisper-transcriber"
+name = "livevox"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
@@ -319,15 +319,15 @@ Compared alternatives: **PyQt6 6.10.2** — GPL license (viral copyleft, commerc
 The `src/` layout is the **recommended standard** per the Python Packaging User Guide, PyOpenSci, and Real Python. It prevents accidental local imports and ensures tests run against the installed package:
 
 ```
-whisper-transcriber/
+livevox/
 ├── .python-version              # "3.12"
 ├── pyproject.toml
 ├── uv.lock
 ├── README.md
 ├── src/
-│   └── whisper_transcriber/
+│   └── livevox/
 │       ├── __init__.py
-│       ├── __main__.py          # Entry: `python -m whisper_transcriber`
+│       ├── __main__.py          # Entry: `python -m livevox`
 │       ├── app.py               # Orchestrator (~100 lines)
 │       ├── audio/
 │       │   ├── __init__.py
@@ -458,7 +458,7 @@ Combining all findings, the full `pyproject.toml` for this project:
 
 ```toml
 [project]
-name = "whisper-transcriber"
+name = "livevox"
 version = "0.1.0"
 description = "Windows desktop app for real-time system audio transcription"
 readme = "README.md"
@@ -483,7 +483,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/whisper_transcriber"]
+packages = ["src/livevox"]
 
 [tool.uv.sources]
 torch = [{ index = "pytorch-cu128" }]
